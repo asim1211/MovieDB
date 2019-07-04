@@ -35,6 +35,11 @@ public class MainActivity extends AppCompatActivity implements MoviesView {
     Call<GenreJSONResults> genreCall;
     List<Genre> genreList = new ArrayList<>();
     JSONResult movieList;
+    private MoviePresenter presenter;
+
+
+
+
 
     @Override
     public void addItemToSpinner(List<Genre> genresList) {
@@ -52,6 +57,18 @@ public class MainActivity extends AppCompatActivity implements MoviesView {
 
     }
 
+    @Override
+    public void populateListView(List<Movie> moviesList) {
+        recyclerView = (RecyclerView) findViewById(R.id.listings_view);
+        adapter = new MovieAdapter(this,moviesList);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+    }
+
+
+
+
     class CustomOnItemSelectedListener implements AdapterView.OnItemSelectedListener {
 
         public void onItemSelected(AdapterView<?> parent, View view, int pos,long id) {
@@ -64,7 +81,8 @@ public class MainActivity extends AppCompatActivity implements MoviesView {
                 gener = 28;
             }
 
-            getMovies();
+            //getMovies();
+            presenter.getMovies();
         }
 
         @Override
@@ -74,12 +92,12 @@ public class MainActivity extends AppCompatActivity implements MoviesView {
 
     }
 
-    private void populateListView(List<Movie> moviesList) {
-        recyclerView = (RecyclerView) findViewById(R.id.listings_view);
-        adapter = new MovieAdapter(this,moviesList);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-    }
+//    private void populateListView(List<Movie> moviesList) {
+//        recyclerView = (RecyclerView) findViewById(R.id.listings_view);
+//        adapter = new MovieAdapter(this,moviesList);
+//        recyclerView.setAdapter(adapter);
+//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+//    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,8 +106,16 @@ public class MainActivity extends AppCompatActivity implements MoviesView {
         addListenerOnSpinnerItemSelection();
 
         //getGenre();
-        getMovies();
+        presenter.getGenre();
+        //getMovies();
+        presenter.getMovies();
 
+    }
+
+    // changing the spinner dynamically
+    public void addListenerOnSpinnerItemSelection() {
+        spinner1 = (Spinner) findViewById(R.id.spinner1);
+        spinner1.setOnItemSelectedListener(new CustomOnItemSelectedListener());
     }
 
     // should be in the presenter
@@ -113,21 +139,21 @@ public class MainActivity extends AppCompatActivity implements MoviesView {
 
 
         // should be in the presenter
-    private void getMovies() {
-        RetrofitClientInstance.getInstance().getMovies(gener, new Callback<JSONResult>() {
-            @Override
-            public void onResponse(Call<JSONResult>call, Response<JSONResult> response) {
-                movieList = response.body();
-                List<Movie> m = movieList.getMovies();
-                populateListView(m);
-
-            }
-
-            @Override
-            public void onFailure(Call<JSONResult> call, Throwable throwable) {
-            }
-        });
-    }
+//    private void getMovies() {
+//        RetrofitClientInstance.getInstance().getMovies(gener, new Callback<JSONResult>() {
+//            @Override
+//            public void onResponse(Call<JSONResult>call, Response<JSONResult> response) {
+//                movieList = response.body();
+//                List<Movie> m = movieList.getMovies();
+//                populateListView(m);
+//
+//            }
+//
+//            @Override
+//            public void onFailure(Call<JSONResult> call, Throwable throwable) {
+//            }
+//        });
+//    }
 
 
     // add items into spinner dynamically
@@ -145,11 +171,7 @@ public class MainActivity extends AppCompatActivity implements MoviesView {
 //    }
 
 
-    // changing the spinner dynamically
-    public void addListenerOnSpinnerItemSelection() {
-        spinner1 = (Spinner) findViewById(R.id.spinner1);
-        spinner1.setOnItemSelectedListener(new CustomOnItemSelectedListener());
-    }
+
 
 
 

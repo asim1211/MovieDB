@@ -30,8 +30,8 @@ public class MoviePresenter {
         view = null;
     }
 
-    private void getGenre() {
-        // genreCall = myInterface.getGenre(key);
+    public void getGenre() {
+
         RetrofitClientInstance.getInstance().getGenres(new Callback<GenreJSONResults>() {
             @Override
             public void onResponse(Call<GenreJSONResults> genreCall, Response<GenreJSONResults> response) {
@@ -39,6 +39,8 @@ public class MoviePresenter {
                 GenreJSONResults list = response.body();
                 List<Genre> g = list.getGenres();
                 genreList.addAll(g);
+                view.addItemToSpinner(g);
+
                 view.addItemToSpinner(g);
                 //addItemsOnSpinner(g);
             }
@@ -51,13 +53,14 @@ public class MoviePresenter {
 
 
 
-    private void getMovies() {
+    public void getMovies() {
         JSONResult movieList;
         RetrofitClientInstance.getInstance().getMovies(gener, new Callback<JSONResult>() {
             @Override
             public void onResponse(Call<JSONResult>call, Response<JSONResult> response) {
-                movieList = response.body();
+                JSONResult movieList = response.body();
                 List<Movie> m = movieList.getMovies();
+                view.populateListView(m);
                 //populateListView(m);
 
             }
