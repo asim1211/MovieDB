@@ -20,6 +20,7 @@ import com.example.moviedb.GenreJSONResults;
 import com.example.moviedb.JSONResult;
 import com.example.moviedb.Movie;
 import com.example.moviedb.screens.home.adapter.MovieAdapter;
+import com.example.moviedb.screens.home.adapter.SpinnerAdapter;
 import com.example.moviedb.screens.home.presenter.MoviePresenter;
 import com.example.moviedb.MyInterface;
 import com.example.moviedb.R;
@@ -31,7 +32,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class MainActivity extends AppCompatActivity {
+
 
 public class MainActivity extends AppCompatActivity implements MoviesView.View {
 
@@ -39,12 +40,11 @@ public class MainActivity extends AppCompatActivity implements MoviesView.View {
     private Spinner spinner1;
     private MovieAdapter adapter;
     private RecyclerView recyclerView;
-    public String key = "6a454f1310829848d7744fcda5a5cb30";
+    public static String key = "6a454f1310829848d7744fcda5a5cb30";
 
     Call<GenreJSONResults> genreCall;
     List<Genre> genreList = new ArrayList<>();
     JSONResult movieList;
-
     private MoviePresenter presenter;
 
     @Override
@@ -60,15 +60,11 @@ public class MainActivity extends AppCompatActivity implements MoviesView.View {
     }
 
     @Override
-    public void addItemToSpinner(List<Genre> genresList) {
+    public void addItemToSpinner(ArrayList<Genre> genresList) {
 
         spinner1 = (Spinner) findViewById(R.id.spinner1);
-        List<String> list = new ArrayList<String>();
-        for (int i = 0; i< genresList.size(); i++){
-            list.add(genresList.get(i).getName());
-        }
 
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, list);
+        SpinnerAdapter dataAdapter = new SpinnerAdapter(this, android.R.layout.simple_spinner_item, genresList);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         spinner1.setAdapter(dataAdapter);
 
@@ -92,22 +88,18 @@ public class MainActivity extends AppCompatActivity implements MoviesView.View {
 
             ((TextView) parent.getChildAt(0)).setTextColor(Color.WHITE);
 
-            if (parent.getItemAtPosition(pos).toString().equals(genreList.get(pos).getName())) {
-                gener = Integer.parseInt(genreList.get(pos).getId());
-
                 if (parent.getItemAtPosition(pos).toString().equals(genreList.get(pos).getName())) {
                     presenter.gener = Integer.parseInt(genreList.get(pos).getId());
                 } else {
                     presenter.gener = 28;
                 }
 
-
-                presenter.getMovies();
-
                 presenter.getMovies(presenter.getCurrentGenre());
 
-            }
+        }
 
+        @Override
+        public void onNothingSelected(AdapterView<?> adapterView) {
 
         }
 
@@ -144,5 +136,5 @@ public class MainActivity extends AppCompatActivity implements MoviesView.View {
 
 
 
-}
+
 

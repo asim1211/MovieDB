@@ -24,7 +24,7 @@ public class RetrofitClientInstance implements MyInterface{
                         .build();
     }
 
-    public void getMovies(int genre, Callback<JSONResult> resultCallback) {
+    public void getMovies(String genre, Callback<JSONResult> resultCallback) {
         myInterface.getMovies(MainActivity.key, genre, "popularity.desc").enqueue(resultCallback);
     }
 
@@ -39,7 +39,7 @@ public class RetrofitClientInstance implements MyInterface{
     }
 
     @Override
-    public Call<JSONResult> getMovies(String key, int geners, String popularity) {
+    public Call<JSONResult> getMovies(String key, String geners, String popularity) {
         return myInterface.getMovies(key,geners,popularity);
     }
 

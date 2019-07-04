@@ -20,7 +20,7 @@ public class MoviePresenter implements MoviesView.Presenter {
     private MyInterface interactor;
 
     private MoviesView.View view;
-    private int currentGenre;
+    private Genre currentGenre;
 
     public MoviePresenter(MyInterface interactor) {
         this.interactor = interactor;
@@ -36,12 +36,12 @@ public class MoviePresenter implements MoviesView.Presenter {
     }
 
     @Override
-    public int getCurrentGenre() {
+    public Genre getCurrentGenre() {
         return currentGenre;
     }
 
     @Override
-    public void setCurrentGenre(int currentGenre) {
+    public void setCurrentGenre(Genre currentGenre) {
         this.currentGenre = currentGenre;
     }
 
@@ -50,10 +50,8 @@ public class MoviePresenter implements MoviesView.Presenter {
             @Override
             public void onResponse(Call<GenreJSONResults> genreCall, Response<GenreJSONResults> response) {
 
-                GenreJSONResults list = response.body();
-                List<Genre> g = list.getGenres();
 
-                view.addItemToSpinner(g);
+                view.addItemToSpinner(response.body().getGenres());
             }
 
             @Override
@@ -65,9 +63,9 @@ public class MoviePresenter implements MoviesView.Presenter {
 
 
 
-    public void getMovies(int genre) {
+    public void getMovies(Genre genre) {
         this.currentGenre = genre;
-        RetrofitClientInstance.getInstance().getMovies(genre, new Callback<JSONResult>() {
+        RetrofitClientInstance.getInstance().getMovies(genre.getId(), new Callback<JSONResult>() {
             @Override
             public void onResponse(Call<JSONResult>call, Response<JSONResult> response) {
                 view.populateListView(response.body().getMovies());
