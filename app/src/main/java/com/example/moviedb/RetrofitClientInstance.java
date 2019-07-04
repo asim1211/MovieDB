@@ -1,10 +1,11 @@
 package com.example.moviedb;
 
+import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class RetrofitClientInstance {
+public class RetrofitClientInstance implements MyInterface{
     private static RetrofitClientInstance instance;
     private MyInterface myInterface;
 
@@ -33,5 +34,15 @@ public class RetrofitClientInstance {
         if (instance == null)
             instance = new RetrofitClientInstance();
         return instance;
+    }
+
+    @Override
+    public Call<JSONResult> getMovies(String key, int geners, String popularity) {
+        return myInterface.getMovies(key,geners,popularity);
+    }
+
+    @Override
+    public Call<GenreJSONResults> getGenre(String key) {
+        return myInterface.getGenre(key);
     }
 }
