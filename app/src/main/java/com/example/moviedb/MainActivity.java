@@ -74,7 +74,8 @@ public class MainActivity extends AppCompatActivity implements MoviesView {
         public void onItemSelected(AdapterView<?> parent, View view, int pos,long id) {
 
             ((TextView) parent.getChildAt(0)).setTextColor(Color.WHITE);
-
+//            System.out.println("--------------------------1--------------------");
+            //System.out.println(genreList.get(0));
             if (parent.getItemAtPosition(pos).toString().equals(genreList.get(pos).getName())){
                 gener = Integer.parseInt(genreList.get(pos).getId());
             }else{
@@ -105,8 +106,13 @@ public class MainActivity extends AppCompatActivity implements MoviesView {
         setContentView(R.layout.activity_main);
         addListenerOnSpinnerItemSelection();
 
+        MyInterface interactor = RetrofitClientInstance.getInstance();
+        presenter = new MoviePresenter(interactor);
+        presenter.bind(this);
+
         //getGenre();
         presenter.getGenre();
+
         //getMovies();
         presenter.getMovies();
 

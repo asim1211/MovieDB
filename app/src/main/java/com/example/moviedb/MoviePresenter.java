@@ -39,9 +39,12 @@ public class MoviePresenter {
                 GenreJSONResults list = response.body();
                 List<Genre> g = list.getGenres();
                 genreList.addAll(g);
-                view.addItemToSpinner(g);
 
+                System.out.println("--------------------------1--------------------");
+                System.out.println(genreList.get(1));
+                System.out.println("--------------------------1--------------------");
                 view.addItemToSpinner(g);
+                //view.addItemToSpinner(g);
                 //addItemsOnSpinner(g);
             }
 
