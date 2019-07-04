@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">MovieDB</string>
+    <string name="first_gener">Action</string>
+    <!--<string-array name="geners_arrays">-->
+        <!--<item>Action</item>-->
+        <!--<item>Documentary</item>-->
+        <!--<item>Animation</item>-->
+    <!--</string-array>-->
+
+
+</resources>
