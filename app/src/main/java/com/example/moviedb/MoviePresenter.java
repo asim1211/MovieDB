@@ -13,7 +13,7 @@ public class MoviePresenter {
 
     private MyInterface interactor;
 
-    List<Genre> genreList = new ArrayList<>();
+    //List<Genre> genreList = new ArrayList<>();
     MoviesView view;
     int gener = 28;
 
@@ -30,21 +30,17 @@ public class MoviePresenter {
         view = null;
     }
 
-    public void getGenre() {
 
+    public void getGenre() {
         RetrofitClientInstance.getInstance().getGenres(new Callback<GenreJSONResults>() {
             @Override
             public void onResponse(Call<GenreJSONResults> genreCall, Response<GenreJSONResults> response) {
 
                 GenreJSONResults list = response.body();
                 List<Genre> g = list.getGenres();
-                genreList.addAll(g);
+                MainActivity.genreList.addAll(g);
 
-                System.out.println("--------------------------1--------------------");
-                System.out.println(genreList.get(1));
-                System.out.println("--------------------------1--------------------");
                 view.addItemToSpinner(g);
-                //view.addItemToSpinner(g);
                 //addItemsOnSpinner(g);
             }
 
@@ -75,11 +71,5 @@ public class MoviePresenter {
     }
 
 
-//    public void addItemsOnSpinner(List<Genre> genresList) {
-//        Spinner spinner1 = (Spinner) findViewById(R.id.spinner1);
-//        List<String> list = new ArrayList<String>();
-//        for (int i = 0; i< genresList.size(); i++){
-//            list.add(genresList.get(i).getName());
-//        }
 
 }
