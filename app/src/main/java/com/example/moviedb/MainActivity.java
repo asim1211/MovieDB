@@ -25,7 +25,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements MoviesView {
 
     private Spinner spinner1;
     private MovieAdapter adapter;
@@ -35,6 +35,22 @@ public class MainActivity extends AppCompatActivity {
     Call<GenreJSONResults> genreCall;
     List<Genre> genreList = new ArrayList<>();
     JSONResult movieList;
+
+    @Override
+    public void addItemToSpinner(List<Genre> genresList) {
+
+        spinner1 = (Spinner) findViewById(R.id.spinner1);
+        List<String> list = new ArrayList<String>();
+        for (int i = 0; i< genresList.size(); i++){
+            list.add(genresList.get(i).getName());
+        }
+
+        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, list);
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinner1.setAdapter(dataAdapter);
+
+    }
 
     class CustomOnItemSelectedListener implements AdapterView.OnItemSelectedListener {
 
@@ -71,29 +87,29 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         addListenerOnSpinnerItemSelection();
 
-        getGenre();
+        //getGenre();
         getMovies();
 
     }
 
     // should be in the presenter
-    private void getGenre() {
-       // genreCall = myInterface.getGenre(key);
-        RetrofitClientInstance.getInstance().getGenres(new Callback<GenreJSONResults>() {
-            @Override
-            public void onResponse(Call<GenreJSONResults> genreCall, Response<GenreJSONResults> response) {
-
-                GenreJSONResults list = response.body();
-                List<Genre> g = list.getGenres();
-                genreList.addAll(g);
-                addItemsOnSpinner(g);
-            }
-
-            @Override
-            public void onFailure(Call<GenreJSONResults> genreCall, Throwable throwable) {
-            }
-        });
-    }
+//    private void getGenre() {
+//       // genreCall = myInterface.getGenre(key);
+//        RetrofitClientInstance.getInstance().getGenres(new Callback<GenreJSONResults>() {
+//            @Override
+//            public void onResponse(Call<GenreJSONResults> genreCall, Response<GenreJSONResults> response) {
+//
+//                GenreJSONResults list = response.body();
+//                List<Genre> g = list.getGenres();
+//                genreList.addAll(g);
+//                //addItemsOnSpinner(g);
+//            }
+//
+//            @Override
+//            public void onFailure(Call<GenreJSONResults> genreCall, Throwable throwable) {
+//            }
+//        });
+//    }
 
 
         // should be in the presenter
@@ -115,18 +131,18 @@ public class MainActivity extends AppCompatActivity {
 
 
     // add items into spinner dynamically
-    public void addItemsOnSpinner(List<Genre> genresList) {
-        spinner1 = (Spinner) findViewById(R.id.spinner1);
-        List<String> list = new ArrayList<String>();
-        for (int i = 0; i< genresList.size(); i++){
-            list.add(genresList.get(i).getName());
-        }
-
-        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_spinner_item, list);
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner1.setAdapter(dataAdapter);
-    }
+//    public void addItemsOnSpinner(List<Genre> genresList) {
+//        spinner1 = (Spinner) findViewById(R.id.spinner1);
+//        List<String> list = new ArrayList<String>();
+//        for (int i = 0; i< genresList.size(); i++){
+//            list.add(genresList.get(i).getName());
+//        }
+//
+//        ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
+//                android.R.layout.simple_spinner_item, list);
+//        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        spinner1.setAdapter(dataAdapter);
+//    }
 
 
     // changing the spinner dynamically
