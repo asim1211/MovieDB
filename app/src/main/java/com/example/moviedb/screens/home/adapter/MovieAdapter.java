@@ -1,27 +1,27 @@
-package com.example.moviedb;
+package com.example.moviedb.screens.home.adapter;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
+
 import java.util.List;
 import android.content.Context;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.squareup.picasso.Picasso;
+import com.example.moviedb.Movie;
+import com.example.moviedb.R;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> {
 
     private List<Movie> movies;
     private Context context;
 
-    public MovieAdapter(Context context,List<Movie> movies){
+    public MovieAdapter(Context context, List<Movie> movies){
         this.context = context;
         this.movies = movies;
     }
@@ -50,6 +50,12 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
     @Override
     public int getItemCount() {
         return this.movies.size();
+    }
+
+    public void updateData(List<Movie> movies) {
+        movies.clear();
+        movies.addAll(movies);
+        notifyDataSetChanged();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
