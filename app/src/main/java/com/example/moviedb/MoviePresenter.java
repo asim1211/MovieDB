@@ -59,6 +59,8 @@ public class MoviePresenter {
             public void onResponse(Call<JSONResult>call, Response<JSONResult> response) {
                 JSONResult movieList = response.body();
                 List<Movie> m = movieList.getMovies();
+                System.out.println("--------------------------1--------------------");
+                System.out.println(m.get(0).getTitle());
                 view.populateListView(m);
                 //populateListView(m);
 

@@ -59,8 +59,8 @@ public class MainActivity extends AppCompatActivity implements MoviesView {
 
     @Override
     public void populateListView(List<Movie> moviesList) {
-        System.out.println("--------------------------1--------------------");
-        System.out.println(moviesList.get(0).getTitle());
+//        System.out.println("--------------------------1--------------------");
+//        System.out.println(moviesList.get(0).getTitle());
         recyclerView = (RecyclerView) findViewById(R.id.listings_view);
         adapter = new MovieAdapter(this,moviesList);
         recyclerView.setAdapter(adapter);
@@ -75,8 +75,6 @@ public class MainActivity extends AppCompatActivity implements MoviesView {
 
         public void onItemSelected(AdapterView<?> parent, View view, int pos,long id) {
             ((TextView) parent.getChildAt(0)).setTextColor(Color.WHITE);
-            System.out.println("--------------------------2--------------------");
-            System.out.println(genreList.get(pos).getName());
             if (parent.getItemAtPosition(pos).toString().equals(genreList.get(pos).getName())){
 
                 gener = Integer.parseInt(genreList.get(pos).getId());
