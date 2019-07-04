@@ -77,9 +77,9 @@ public class MainActivity extends AppCompatActivity implements MoviesView {
             ((TextView) parent.getChildAt(0)).setTextColor(Color.WHITE);
             if (parent.getItemAtPosition(pos).toString().equals(genreList.get(pos).getName())){
 
-                gener = Integer.parseInt(genreList.get(pos).getId());
+                presenter.gener = Integer.parseInt(genreList.get(pos).getId());
             }else{
-                gener = 28;
+                presenter.gener = 28;
             }
 
             //getMovies();
