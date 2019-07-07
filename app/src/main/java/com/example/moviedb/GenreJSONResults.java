@@ -3,6 +3,7 @@ package com.example.moviedb;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class GenreJSONResults {
@@ -10,11 +11,11 @@ public class GenreJSONResults {
 
     @SerializedName("genres")
     @Expose
-    private List<Genre> genres;
+    private ArrayList<Genre> genres;
 
 
 
-    public List<Genre> getGenres(){
+    public ArrayList<Genre> getGenres(){
         return genres;
     }
 }

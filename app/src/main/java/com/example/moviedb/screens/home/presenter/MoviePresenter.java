@@ -1,5 +1,7 @@
 package com.example.moviedb.screens.home.presenter;
 
+import android.app.Activity;
+
 import com.example.moviedb.Genre;
 import com.example.moviedb.GenreJSONResults;
 import com.example.moviedb.JSONResult;
@@ -9,6 +11,7 @@ import com.example.moviedb.RetrofitClientInstance;
 import com.example.moviedb.screens.home.MoviesView;
 import com.example.moviedb.screens.home.view.MainActivity;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import retrofit2.Call;
@@ -17,41 +20,39 @@ import retrofit2.Response;
 
 public class MoviePresenter implements MoviesView.Presenter {
 
-    private MyInterface interactor;
 
-    private MoviesView.View view;
-    private Genre currentGenre;
+    private Activity activity;
+    private  MoviesView.View view;
 
-    public MoviePresenter(MyInterface interactor) {
-        this.interactor = interactor;
-    }
+    private ArrayList<Genre> genres;
 
-
-    public void bind(MoviesView.View view) {
+    public MoviePresenter(Activity activity, MoviesView.View view) {
+        this.activity = activity;
         this.view = view;
     }
 
-    public void unbind() {
-        view = null;
+    @Override
+    public void init() {
+        view.init();
+
+        getGenre();
     }
 
     @Override
-    public Genre getCurrentGenre() {
-        return currentGenre;
-    }
-
-    @Override
-    public void setCurrentGenre(Genre currentGenre) {
-        this.currentGenre = currentGenre;
+    public Genre getSelectedGenre(int position) {
+        return genres.get(position);
     }
 
     public void getGenre() {
         RetrofitClientInstance.getInstance().getGenres(new Callback<GenreJSONResults>() {
             @Override
             public void onResponse(Call<GenreJSONResults> genreCall, Response<GenreJSONResults> response) {
+                if (response.body() != null && response.body().getGenres().size() > 0) {
+                    genres = response.body().getGenres();
 
-
-                view.addItemToSpinner(response.body().getGenres());
+                    view.onGenresReady(genres);
+                    getMovies(genres.get(0).getId());
+                }
             }
 
             @Override
@@ -61,15 +62,11 @@ public class MoviePresenter implements MoviesView.Presenter {
         });
     }
 
-
-
-    public void getMovies(Genre genre) {
-        this.currentGenre = genre;
-        RetrofitClientInstance.getInstance().getMovies(genre.getId(), new Callback<JSONResult>() {
+    public void getMovies(String genreId) {
+        RetrofitClientInstance.getInstance().getMovies(genreId, new Callback<JSONResult>() {
             @Override
             public void onResponse(Call<JSONResult>call, Response<JSONResult> response) {
                 view.populateListView(response.body().getMovies());
-
             }
 
             @Override
@@ -78,7 +75,4 @@ public class MoviePresenter implements MoviesView.Presenter {
             }
         });
     }
-
-
-
 }

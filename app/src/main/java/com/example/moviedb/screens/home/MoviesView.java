@@ -10,13 +10,14 @@ import java.util.List;
 public interface MoviesView {
 
         interface View {
-                void addItemToSpinner(ArrayList<Genre> genresList);
+                void init();
                 void populateListView(List<Movie> moviesList);
+                void onGenresReady(ArrayList<Genre> genres);
         }
 
         interface Presenter {
-                Genre getCurrentGenre();
-                void setCurrentGenre(Genre currentItem);
+                void init();
+                Genre getSelectedGenre(int position);
         }
 
 }

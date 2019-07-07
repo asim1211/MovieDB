@@ -14,10 +14,7 @@ public class Genre {
     @Expose
     private String name;
 
-
-
     public Genre(String id, String name){
-
         this.id = id;
         this.name = name;
     }
@@ -30,4 +27,7 @@ public class Genre {
         return name;
     }
 
+    public boolean compareTo(Genre genre) {
+        return genre.getId().equals(id);
+    }
 }
