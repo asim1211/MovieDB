@@ -16,6 +16,9 @@ import com.bumptech.glide.Glide;
 import com.example.moviedb.Movie;
 import com.example.moviedb.R;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> {
 
     private List<Movie> movies;
@@ -59,19 +62,20 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView movieOverview;
-        TextView movieTitle;
-        TextView movieDate;
-        TextView movieLanguage;
-        ImageView movieImage;
+
+        @BindView(R.id.item_movie_overview) TextView movieOverview;
+        @BindView(R.id.item_movie_title) TextView movieTitle;
+        @BindView(R.id.item_movie_release_date) TextView movieDate;
+        @BindView(R.id.item_movie_language) TextView movieLanguage;
+        @BindView(R.id.item_movie_poster) ImageView movieImage;
+
+
+
+
 
         public ViewHolder(@NonNull View view) {
             super(view);
-            this.movieOverview = view.findViewById(R.id.item_movie_overview);
-            this.movieTitle = view.findViewById(R.id.item_movie_title);
-            this.movieDate = view.findViewById(R.id.item_movie_release_date);
-            this.movieLanguage = view.findViewById(R.id.item_movie_language);
-            this.movieImage = view.findViewById(R.id.item_movie_poster);
+            ButterKnife.bind(this, view);
         }
 
         public void populate(Movie thisMovie) {
