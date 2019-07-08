@@ -6,9 +6,9 @@ import com.google.gson.annotations.SerializedName;
 public class MovieDetails {
 
 
-    @SerializedName("original_title")
+    @SerializedName("title")
     @Expose
-    private String original_title;
+    private String title;
 
     @SerializedName("original_language")
     @Expose
@@ -30,6 +30,12 @@ public class MovieDetails {
     @SerializedName("backdrop_path")
     @Expose
     private String backdrop_path;
+
+
+    @SerializedName("vote_average")
+    @Expose
+    private String vote_average;
+
 
 
 

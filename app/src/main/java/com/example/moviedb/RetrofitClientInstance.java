@@ -47,4 +47,7 @@ public class RetrofitClientInstance implements MyInterface{
     public Call<GenreJSONResults> getGenre(String key) {
         return myInterface.getGenre(key);
     }
+
+    @Override
+    public Call<MovieDetails> getMovieDetails(String movieID) { return myInterface.getMovieDetails(movieID); }
 }

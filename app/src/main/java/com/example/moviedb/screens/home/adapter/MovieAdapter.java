@@ -106,13 +106,16 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
             }
         }
 
+
+
+
         public void bindView(final int pos) {
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
-                    System.out.println("----11------");
-                    Intent intent = new Intent (context, MovieDetailsActivity.class);
-                    context.startActivity(intent);
+
+                    //System.out.println(movies.get(pos).getID());
+                    context.startActivity(new Intent (context, MovieDetailsActivity.class));
                 }
             });
         }
