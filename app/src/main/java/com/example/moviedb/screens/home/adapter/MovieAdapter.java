@@ -1,5 +1,6 @@
 package com.example.moviedb.screens.home.adapter;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,7 +15,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.moviedb.Movie;
+import com.example.moviedb.MyInterface;
 import com.example.moviedb.R;
+import com.example.moviedb.screens.home.view.MainActivity;
+import com.example.moviedb.screens.home.view.MovieDetailsActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -27,6 +31,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
     public MovieAdapter(Context context, List<Movie> movies){
         this.context = context;
         this.movies = movies;
+
     }
 
 
@@ -38,11 +43,14 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
                         .from(context)
                         .inflate(R.layout.item_list, parent, false)
         );
+
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         holder.populate(movies.get(position));
+        holder.bindView(position);
+
     }
 
     @Override
@@ -61,6 +69,15 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
         notifyDataSetChanged();
     }
 
+//    @Override
+//    public void onClick(View view) {
+//        System.out.println("----11------");
+//        Intent intent = new Intent (this.context, MovieDetailsActivity.class);
+//        this.context.startActivity(intent);
+//
+//    }
+
+
     public class ViewHolder extends RecyclerView.ViewHolder {
 
         @BindView(R.id.item_movie_overview) TextView movieOverview;
@@ -73,6 +90,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
             super(view);
             ButterKnife.bind(this, view);
         }
+
 
         public void populate(Movie thisMovie) {
             movieOverview.setText(thisMovie.getOverview());
@@ -87,5 +105,19 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
                 movieImage.setImageResource(R.mipmap.ic_launcher_round);
             }
         }
+
+        public void bindView(final int pos) {
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    System.out.println("----11------");
+                    Intent intent = new Intent (context, MovieDetailsActivity.class);
+                    context.startActivity(intent);
+                }
+            });
+        }
+
+
+
     }
 }

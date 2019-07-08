@@ -1,6 +1,8 @@
 package com.example.moviedb.screens.home;
 
 
+import android.view.View;
+
 import com.example.moviedb.Genre;
 import com.example.moviedb.Movie;
 
