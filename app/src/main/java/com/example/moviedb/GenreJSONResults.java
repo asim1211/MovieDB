@@ -14,7 +14,6 @@ public class GenreJSONResults {
     private ArrayList<Genre> genres;
 
 
-
     public ArrayList<Genre> getGenres(){
         return genres;
     }

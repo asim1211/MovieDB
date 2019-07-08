@@ -69,10 +69,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
         @BindView(R.id.item_movie_language) TextView movieLanguage;
         @BindView(R.id.item_movie_poster) ImageView movieImage;
 
-
-
-
-
         public ViewHolder(@NonNull View view) {
             super(view);
             ButterKnife.bind(this, view);
