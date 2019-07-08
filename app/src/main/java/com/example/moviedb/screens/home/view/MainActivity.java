@@ -24,12 +24,16 @@ import com.example.moviedb.screens.home.presenter.MoviePresenter;
 import com.example.moviedb.R;
 import com.example.moviedb.screens.home.MoviesView;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 
 public class MainActivity extends AppCompatActivity implements MoviesView.View, AdapterView.OnItemSelectedListener {
 
     public static String key = "6a454f1310829848d7744fcda5a5cb30";
 
-    private Spinner spinner1;
+    //private Spinner spinner1;
+    @BindView(R.id.spinner1) Spinner spinner1;
     private RecyclerView recyclerView;
 
     private MovieAdapter adapter;
@@ -47,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements MoviesView.View, 
 
     @Override
     public void init() {
-        this.spinner1 = findViewById(R.id.spinner1);
+        ButterKnife.bind(this, this);
         spinner1.setOnItemSelectedListener(this);
 
         this.recyclerView = findViewById(R.id.listings_view);
