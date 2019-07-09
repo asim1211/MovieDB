@@ -14,6 +14,8 @@ public interface MovieDetailsView {
     }
 
     interface Presenter {
-        void init();
+        void init(String movieID);
+
+
     }
 }

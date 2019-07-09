@@ -38,6 +38,15 @@ public class MovieDetails {
     private String vote_average;
 
 
+    public MovieDetails (String title, String original_language, String overview, String release_date, String poster_path, String backdrop_path, String vote_average){
+        this.title = title;
+        this.original_language = original_language;
+        this.overview = overview;
+        this.release_date = release_date;
+        this.poster_path = poster_path;
+        this.backdrop_path = backdrop_path;
+        this.vote_average = vote_average;
+    }
 
     public MovieDetails getMovieDetails(){ return movieDetails; }
 

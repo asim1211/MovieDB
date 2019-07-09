@@ -27,24 +27,27 @@ public class MovieDetailsActivity extends AppCompatActivity implements MovieDeta
         super.onCreate(savedInstanceState);
         setContentView(R.layout.movie_details_activity);
         ButterKnife.bind(this);
-        movieDetailsPresenter = new MovieDetailsPresenter(this, this);
-        movieDetailsPresenter.init();
 
+        movieDetailsPresenter = new MovieDetailsPresenter(this, this);
+        movieDetailsPresenter.init(getIntent().getStringExtra("MOVIE_ID"));
 
     }
 
     @Override
     public void init() {
 
-        m.setText("ls,dl,sl;,fl,s");
 
-        System.out.println("-----1--------");
+
     }
 
 
 
     @Override
     public void populateView(MovieDetails movieDetails) {
+        System.out.println("-------134431--------------");
+        System.out.println(movieDetails.getTitle());
+
         this.movieDetails = movieDetails;
+
     }
 }

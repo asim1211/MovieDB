@@ -1,6 +1,7 @@
 package com.example.moviedb.screens.home;
 
 
+import android.content.Intent;
 import android.view.View;
 
 import com.example.moviedb.Genre;
@@ -15,11 +16,13 @@ public interface MoviesView {
                 void init();
                 void populateListView(List<Movie> moviesList);
                 void onGenresReady(ArrayList<Genre> genres);
+                void onIntent(Intent intent);
         }
 
         interface Presenter {
                 void init();
                 Genre getSelectedGenre(int position);
+                //void getDetails(int position);
         }
 
 }

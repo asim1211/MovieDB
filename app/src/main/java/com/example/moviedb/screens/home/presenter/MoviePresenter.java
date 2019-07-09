@@ -1,6 +1,7 @@
 package com.example.moviedb.screens.home.presenter;
 
 import android.app.Activity;
+import android.content.Intent;
 
 import com.example.moviedb.Genre;
 import com.example.moviedb.GenreJSONResults;
@@ -10,6 +11,7 @@ import com.example.moviedb.MyInterface;
 import com.example.moviedb.RetrofitClientInstance;
 import com.example.moviedb.screens.home.MoviesView;
 import com.example.moviedb.screens.home.view.MainActivity;
+import com.example.moviedb.screens.home.view.MovieDetailsActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +26,10 @@ public class MoviePresenter implements MoviesView.Presenter {
     private Activity activity;
     private  MoviesView.View view;
 
+    private MoviesView.Presenter movieDetailsPresenter;
+
     private ArrayList<Genre> genres;
+    private List<Movie> movies;
 
     public MoviePresenter(Activity activity, MoviesView.View view) {
         this.activity = activity;
@@ -40,8 +45,12 @@ public class MoviePresenter implements MoviesView.Presenter {
 
     @Override
     public Genre getSelectedGenre(int position) {
+       // view.onIntent(new Intent(activity, MovieDetailsActivity.class));
+
         return genres.get(position);
     }
+
+
 
     public void getGenre() {
         RetrofitClientInstance.getInstance().getGenres(new Callback<GenreJSONResults>() {
@@ -49,7 +58,6 @@ public class MoviePresenter implements MoviesView.Presenter {
             public void onResponse(Call<GenreJSONResults> genreCall, Response<GenreJSONResults> response) {
                 if (response.body() != null && response.body().getGenres().size() > 0) {
                     genres = response.body().getGenres();
-
                     view.onGenresReady(genres);
                     getMovies(genres.get(0).getId());
                 }
@@ -66,7 +74,8 @@ public class MoviePresenter implements MoviesView.Presenter {
         RetrofitClientInstance.getInstance().getMovies(genreId, new Callback<JSONResult>() {
             @Override
             public void onResponse(Call<JSONResult>call, Response<JSONResult> response) {
-                view.populateListView(response.body().getMovies());
+                movies = response.body().getMovies();
+                view.populateListView(movies);
             }
 
             @Override

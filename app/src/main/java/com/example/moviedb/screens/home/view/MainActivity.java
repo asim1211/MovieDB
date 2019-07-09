@@ -67,7 +67,7 @@ public class MainActivity extends AppCompatActivity implements MoviesView.View, 
     @Override
     public void populateListView(List<Movie> moviesList) {
         if (adapter == null) {
-            adapter = new MovieAdapter(this, moviesList);
+            adapter = new MovieAdapter(this, presenter, moviesList);
             recyclerView.setAdapter(adapter);
         }
         else
@@ -84,6 +84,10 @@ public class MainActivity extends AppCompatActivity implements MoviesView.View, 
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {}
 
+    @Override
+    public void onIntent(Intent intent) {
+        startActivity(intent);
+    }
 }
 
 

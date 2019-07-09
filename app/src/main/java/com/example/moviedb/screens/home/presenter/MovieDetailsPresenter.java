@@ -20,11 +20,6 @@ public class MovieDetailsPresenter implements MovieDetailsView.Presenter {
     private Activity activity;
     private MovieDetailsView.View view;
 
-    private MovieDetails movieDetails;
-    private String movieID;
-
-
-
 
     public MovieDetailsPresenter(Activity activity, MovieDetailsView.View view){
         this.activity = activity;
@@ -33,29 +28,21 @@ public class MovieDetailsPresenter implements MovieDetailsView.Presenter {
     }
 
     @Override
-    public void init() {
+    public void init(String movieID) {
         view.init();
 
-       // getMovies(movieID);
+        getMovieDetails(movieID);
 
-    }
-
-    public String getMovieID(){
-
-        return movieID;
     }
 
 
     public void getMovieDetails(String movieID) {
-        System.out.println("---------1------------");
         RetrofitClientInstance.getInstance().getMovieDetails(movieID, new Callback<MovieDetails>() {
             @Override
             public void onResponse(Call<MovieDetails> call, Response<MovieDetails> response) {
-                System.out.println("---------2------------");
-
-                System.out.println(response.body().getTitle());
-                //view.populateView(response.body().getMovieDetails());
+                view.populateView(response.body());
             }
+
 
             @Override
             public void onFailure(Call<MovieDetails> call, Throwable throwable) {
@@ -63,4 +50,6 @@ public class MovieDetailsPresenter implements MovieDetailsView.Presenter {
             }
         });
     }
+
+
 }

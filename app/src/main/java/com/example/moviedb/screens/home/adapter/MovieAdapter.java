@@ -18,6 +18,8 @@ import com.example.moviedb.Movie;
 import com.example.moviedb.MovieDetails;
 import com.example.moviedb.MyInterface;
 import com.example.moviedb.R;
+import com.example.moviedb.screens.home.MovieDetailsView;
+import com.example.moviedb.screens.home.MoviesView;
 import com.example.moviedb.screens.home.presenter.MovieDetailsPresenter;
 import com.example.moviedb.screens.home.view.MainActivity;
 import com.example.moviedb.screens.home.view.MovieDetailsActivity;
@@ -30,12 +32,12 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
     private List<Movie> movies;
     private Context context;
 
-    private MovieDetailsPresenter movieDetailsPresenter = new MovieDetailsPresenter(null,null);
+    private MoviesView.Presenter movieDetailsPresenter;
 
-    public MovieAdapter(Context context, List<Movie> movies){
+    public MovieAdapter(Context context, MoviesView.Presenter movieDetailsPresenter, List<Movie> movies){
         this.context = context;
         this.movies = movies;
-
+        this.movieDetailsPresenter = movieDetailsPresenter;
     }
 
 
@@ -107,10 +109,10 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
 
         public void bindView(final int pos) {
             itemView.setOnClickListener(view -> {
-//                movieDetailsPresenter.getMovieDetails(movies.get(pos).getID());
-                context.startActivity(new Intent (context, MovieDetailsActivity.class));
-                movieDetailsPresenter.getMovieDetails(movies.get(pos).getID());
 
+                Intent intent = new Intent (context, MovieDetailsActivity.class);
+                intent.putExtra("MOVIE_ID", movies.get(pos).getID());
+                context.startActivity(intent);
             });
         }
 
