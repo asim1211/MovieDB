@@ -32,6 +32,11 @@ public class RetrofitClientInstance implements MyInterface{
         myInterface.getGenre(MainActivity.key).enqueue(resultCallback);
     }
 
+    public void getMovieDetails(String id,Callback<MovieDetails> resultCallback){
+
+        myInterface.getMovieDetails(MainActivity.key,id).enqueue(resultCallback);
+    }
+
     public static RetrofitClientInstance getInstance() {
         if (instance == null)
             instance = new RetrofitClientInstance();
@@ -49,5 +54,5 @@ public class RetrofitClientInstance implements MyInterface{
     }
 
     @Override
-    public Call<MovieDetails> getMovieDetails(String movieID) { return myInterface.getMovieDetails(movieID); }
+    public Call<MovieDetails> getMovieDetails(String key,String movieID) { return myInterface.getMovieDetails(key, movieID); }
 }

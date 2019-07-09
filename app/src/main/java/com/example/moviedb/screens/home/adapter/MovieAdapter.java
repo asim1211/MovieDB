@@ -15,8 +15,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.moviedb.Movie;
+import com.example.moviedb.MovieDetails;
 import com.example.moviedb.MyInterface;
 import com.example.moviedb.R;
+import com.example.moviedb.screens.home.presenter.MovieDetailsPresenter;
 import com.example.moviedb.screens.home.view.MainActivity;
 import com.example.moviedb.screens.home.view.MovieDetailsActivity;
 
@@ -27,6 +29,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
 
     private List<Movie> movies;
     private Context context;
+
+    private MovieDetailsPresenter movieDetailsPresenter = new MovieDetailsPresenter(null,null);
 
     public MovieAdapter(Context context, List<Movie> movies){
         this.context = context;
@@ -69,13 +73,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
         notifyDataSetChanged();
     }
 
-//    @Override
-//    public void onClick(View view) {
-//        System.out.println("----11------");
-//        Intent intent = new Intent (this.context, MovieDetailsActivity.class);
-//        this.context.startActivity(intent);
-//
-//    }
+
 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -85,7 +83,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
         @BindView(R.id.item_movie_release_date) TextView movieDate;
         @BindView(R.id.item_movie_language) TextView movieLanguage;
         @BindView(R.id.item_movie_poster) ImageView movieImage;
-
         public ViewHolder(@NonNull View view) {
             super(view);
             ButterKnife.bind(this, view);
@@ -97,6 +94,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
             movieTitle.setText(thisMovie.getTitle());
             movieDate.setText("Release Date: " + thisMovie.getRelease_date());
             movieLanguage.setText("Language: " + thisMovie.getOriginal_language());
+
             if(thisMovie.getPoster_path() != null && thisMovie.getPoster_path().length()>0)
             {
                 Glide.with(context).load("https://image.tmdb.org/t/p/w92/" + thisMovie.getPoster_path()).into(movieImage);
@@ -107,16 +105,14 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
         }
 
 
-
-
         public void bindView(final int pos) {
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
+            itemView.setOnClickListener(view -> {
+               // movieDetailsPresenter.getMovieDetails(movies.get(pos).getID());
+                System.out.println("------6--------");
+                context.startActivity(new Intent (context, MovieDetailsActivity.class));
+                System.out.println("------7--------");
+                movieDetailsPresenter.getMovieDetails(movies.get(pos).getID());
 
-                    //System.out.println(movies.get(pos).getID());
-                    context.startActivity(new Intent (context, MovieDetailsActivity.class));
-                }
             });
         }
 

@@ -20,7 +20,7 @@ public interface MyInterface {
     Call<GenreJSONResults> getGenre(@Query("api_key") String key);
 
     @GET("movie/{movie_id}")
-    Call<MovieDetails> getMovieDetails(@Path("movie_id") String movieID);
+    Call<MovieDetails> getMovieDetails(@Path("movie_id") String movieID, @Query("api_key") String key);
 
 
 

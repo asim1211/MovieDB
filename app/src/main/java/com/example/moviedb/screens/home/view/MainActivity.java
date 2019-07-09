@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -30,7 +31,6 @@ public class MainActivity extends AppCompatActivity implements MoviesView.View, 
 
     public static String key = "6a454f1310829848d7744fcda5a5cb30";
 
-    //private Spinner spinner1;
     @BindView(R.id.spinner1) Spinner spinner1;
     private RecyclerView recyclerView;
 
@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity implements MoviesView.View, 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         presenter = new MoviePresenter(this, this);
         presenter.init();
@@ -82,7 +83,6 @@ public class MainActivity extends AppCompatActivity implements MoviesView.View, 
 
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {}
-
 
 }
 
