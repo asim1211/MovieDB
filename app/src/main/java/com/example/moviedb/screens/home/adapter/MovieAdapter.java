@@ -14,14 +14,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.moviedb.Movie;
-import com.example.moviedb.MovieDetails;
-import com.example.moviedb.MyInterface;
+import com.example.moviedb.screens.home.objects.Movie;
 import com.example.moviedb.R;
-import com.example.moviedb.screens.home.MovieDetailsView;
 import com.example.moviedb.screens.home.MoviesView;
-import com.example.moviedb.screens.home.presenter.MovieDetailsPresenter;
-import com.example.moviedb.screens.home.view.MainActivity;
 import com.example.moviedb.screens.home.view.MovieDetailsActivity;
 
 import butterknife.BindView;

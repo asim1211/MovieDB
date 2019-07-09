@@ -1,7 +1,7 @@
 package com.example.moviedb.screens.home;
 
 
-import com.example.moviedb.MovieDetails;
+import com.example.moviedb.screens.home.objects.MovieDetails;
 
 
 

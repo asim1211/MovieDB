@@ -3,13 +3,10 @@ package com.example.moviedb.screens.home.presenter;
 import android.app.Activity;
 
 
-import com.example.moviedb.Movie;
-import com.example.moviedb.MovieDetails;
-import com.example.moviedb.RetrofitClientInstance;
+import com.example.moviedb.screens.home.networking.RetrofitClientInstance;
 import com.example.moviedb.screens.home.MovieDetailsView;
+import com.example.moviedb.screens.home.objects.MovieDetails;
 
-
-import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -29,9 +26,9 @@ public class MovieDetailsPresenter implements MovieDetailsView.Presenter {
 
     @Override
     public void init(String movieID) {
-        view.init();
-
         getMovieDetails(movieID);
+
+        view.init();
 
     }
 

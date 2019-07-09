@@ -1,10 +1,10 @@
-package com.example.moviedb;
+package com.example.moviedb.screens.home.networkingObjects;
 
+import com.example.moviedb.screens.home.objects.Genre;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class GenreJSONResults {
 

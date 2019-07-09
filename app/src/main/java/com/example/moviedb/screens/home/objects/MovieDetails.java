@@ -1,4 +1,4 @@
-package com.example.moviedb;
+package com.example.moviedb.screens.home.objects;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -47,8 +47,6 @@ public class MovieDetails {
         this.backdrop_path = backdrop_path;
         this.vote_average = vote_average;
     }
-
-    public MovieDetails getMovieDetails(){ return movieDetails; }
 
     public String getPoster_path() { return poster_path; }
 

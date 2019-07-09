@@ -1,6 +1,7 @@
-package com.example.moviedb;
+package com.example.moviedb.screens.home.networkingObjects;
 
 
+import com.example.moviedb.screens.home.objects.Movie;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 

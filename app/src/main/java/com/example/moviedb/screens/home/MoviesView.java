@@ -2,10 +2,9 @@ package com.example.moviedb.screens.home;
 
 
 import android.content.Intent;
-import android.view.View;
 
-import com.example.moviedb.Genre;
-import com.example.moviedb.Movie;
+import com.example.moviedb.screens.home.objects.Genre;
+import com.example.moviedb.screens.home.objects.Movie;
 
 import java.util.ArrayList;
 import java.util.List;

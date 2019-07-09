@@ -1,17 +1,13 @@
 package com.example.moviedb.screens.home.presenter;
 
 import android.app.Activity;
-import android.content.Intent;
 
-import com.example.moviedb.Genre;
-import com.example.moviedb.GenreJSONResults;
-import com.example.moviedb.JSONResult;
-import com.example.moviedb.Movie;
-import com.example.moviedb.MyInterface;
-import com.example.moviedb.RetrofitClientInstance;
+import com.example.moviedb.screens.home.objects.Genre;
+import com.example.moviedb.screens.home.networkingObjects.GenreJSONResults;
+import com.example.moviedb.screens.home.networkingObjects.JSONResult;
+import com.example.moviedb.screens.home.objects.Movie;
+import com.example.moviedb.screens.home.networking.RetrofitClientInstance;
 import com.example.moviedb.screens.home.MoviesView;
-import com.example.moviedb.screens.home.view.MainActivity;
-import com.example.moviedb.screens.home.view.MovieDetailsActivity;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,5 +1,9 @@
-package com.example.moviedb;
+package com.example.moviedb.screens.home.networking;
 
+import com.example.moviedb.screens.home.networkingObjects.GenreJSONResults;
+import com.example.moviedb.screens.home.networkingObjects.JSONResult;
+import com.example.moviedb.MyInterface;
+import com.example.moviedb.screens.home.objects.MovieDetails;
 import com.example.moviedb.screens.home.view.MainActivity;
 
 import retrofit2.Call;
@@ -7,7 +11,7 @@ import retrofit2.Callback;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class RetrofitClientInstance implements MyInterface{
+public class RetrofitClientInstance implements MyInterface {
     private static RetrofitClientInstance instance;
     private MyInterface myInterface;
 

@@ -1,4 +1,4 @@
-package com.example.moviedb;
+package com.example.moviedb.screens.home.objects;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

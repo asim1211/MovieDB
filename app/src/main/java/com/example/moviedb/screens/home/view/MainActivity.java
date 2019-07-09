@@ -15,8 +15,8 @@ import android.widget.AdapterView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.example.moviedb.Genre;
-import com.example.moviedb.Movie;
+import com.example.moviedb.screens.home.objects.Genre;
+import com.example.moviedb.screens.home.objects.Movie;
 import com.example.moviedb.screens.home.SpinnerAdapter;
 import com.example.moviedb.screens.home.adapter.MovieAdapter;
 import com.example.moviedb.screens.home.presenter.MoviePresenter;
