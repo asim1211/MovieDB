@@ -52,7 +52,8 @@ public class MovieDetailsPresenter implements MovieDetailsView.Presenter {
             @Override
             public void onResponse(Call<MovieDetails> call, Response<MovieDetails> response) {
                 System.out.println("---------2------------");
-                System.out.println(response.body().getMovieDetails().getTitle());
+
+                System.out.println(response.body().getTitle());
                 //view.populateView(response.body().getMovieDetails());
             }
 

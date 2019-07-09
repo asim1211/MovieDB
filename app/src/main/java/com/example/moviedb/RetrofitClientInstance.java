@@ -34,7 +34,7 @@ public class RetrofitClientInstance implements MyInterface{
 
     public void getMovieDetails(String id,Callback<MovieDetails> resultCallback){
 
-        myInterface.getMovieDetails(MainActivity.key,id).enqueue(resultCallback);
+        myInterface.getMovieDetails(id,MainActivity.key).enqueue(resultCallback);
     }
 
     public static RetrofitClientInstance getInstance() {

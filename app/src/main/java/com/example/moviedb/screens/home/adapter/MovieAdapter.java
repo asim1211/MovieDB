@@ -107,10 +107,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
 
         public void bindView(final int pos) {
             itemView.setOnClickListener(view -> {
-               // movieDetailsPresenter.getMovieDetails(movies.get(pos).getID());
-                System.out.println("------6--------");
+//                movieDetailsPresenter.getMovieDetails(movies.get(pos).getID());
                 context.startActivity(new Intent (context, MovieDetailsActivity.class));
-                System.out.println("------7--------");
                 movieDetailsPresenter.getMovieDetails(movies.get(pos).getID());
 
             });
