@@ -1,4 +1,4 @@
-package com.example.moviedb.screens.home.adapter;
+package com.example.moviedb.screens.home.screens.movies.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,7 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.example.moviedb.screens.home.objects.Genre;
+import com.example.moviedb.screens.home.model.Genre;
 import com.example.moviedb.R;
 
 import java.util.ArrayList;

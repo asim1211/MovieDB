@@ -1,11 +1,14 @@
 <resources>
     <string name="app_name">MovieDB</string>
-    <string name="first_gener">Action</string>
-    <!--<string-array name="geners_arrays">-->
-        <!--<item>Action</item>-->
-        <!--<item>Documentary</item>-->
-        <!--<item>Animation</item>-->
-    <!--</string-array>-->
+
+    // HOME SCREEN
+    <string name="date_label_movie_adapter">Release Date:</string>
+    <string name="language_label_movie_adapter">Language:</string>
 
 
+
+    // DETAIL SCREEN
+    <string name="date_label_movie_detail">@string/date_label_movie_adapter</string>
+    <string name="language_label_movie_detail">@string/language_label_movie_adapter</string>
+    <string name="rating_label_movie_detail">Ratings:</string>
 </resources>

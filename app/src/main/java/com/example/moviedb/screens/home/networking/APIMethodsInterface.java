@@ -1,8 +1,8 @@
 package com.example.moviedb.screens.home.networking;
 
-import com.example.moviedb.screens.home.networkingObjects.GenreJSONResults;
-import com.example.moviedb.screens.home.networkingObjects.MovieJSONResult;
-import com.example.moviedb.screens.home.objects.MovieDetails;
+import com.example.moviedb.screens.home.model.GenreJSONResults;
+import com.example.moviedb.screens.home.model.MovieJSONResult;
+import com.example.moviedb.screens.home.model.MovieDetails;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.NoActionBar">
 
-        <activity android:name=".screens.home.view.MainActivity">
+        <activity android:name=".screens.home.screens.movies.view.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -18,11 +18,11 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".screens.home.view.MovieDetailsActivity"
-            android:parentActivityName=".screens.home.view.MainActivity">
+        <activity android:name=".screens.home.screens.moviedetail.view.MovieDetailsActivity"
+            android:parentActivityName=".screens.home.screens.movies.view.MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".screens.home.view.MainActivity"/>
+                android:value=".screens.home.screens.movies.view.MainActivity"/>
         </activity>
 
     </application>

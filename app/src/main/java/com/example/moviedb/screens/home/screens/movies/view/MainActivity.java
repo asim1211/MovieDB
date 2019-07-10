@@ -1,4 +1,4 @@
-package com.example.moviedb.screens.home.view;
+package com.example.moviedb.screens.home.screens.movies.view;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -15,13 +15,13 @@ import android.widget.AdapterView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.example.moviedb.screens.home.objects.Genre;
-import com.example.moviedb.screens.home.objects.Movie;
-import com.example.moviedb.screens.home.adapter.SpinnerAdapter;
-import com.example.moviedb.screens.home.adapter.MovieAdapter;
-import com.example.moviedb.screens.home.presenter.MoviePresenter;
+import com.example.moviedb.screens.home.model.Genre;
+import com.example.moviedb.screens.home.model.Movie;
+import com.example.moviedb.screens.home.screens.movies.adapter.SpinnerAdapter;
+import com.example.moviedb.screens.home.screens.movies.adapter.MovieAdapter;
+import com.example.moviedb.screens.home.screens.movies.presenter.MoviePresenter;
 import com.example.moviedb.R;
-import com.example.moviedb.screens.home.Interfaces.MoviesInterface;
+import com.example.moviedb.screens.home.screens.movies.MoviesInterface;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -32,7 +32,7 @@ public class MainActivity extends AppCompatActivity implements MoviesInterface.V
     public static String key = "6a454f1310829848d7744fcda5a5cb30";
 
     @BindView(R.id.spinner1) Spinner spinner1;
-    private RecyclerView recyclerView;
+    @BindView(R.id.listings_view) RecyclerView recyclerView;
 
     private MovieAdapter adapter;
     private MoviePresenter presenter;
@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity implements MoviesInterface.V
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        ButterKnife.bind(this);
 
         presenter = new MoviePresenter(this, this);
         presenter.init();
@@ -49,10 +49,7 @@ public class MainActivity extends AppCompatActivity implements MoviesInterface.V
 
     @Override
     public void init() {
-        ButterKnife.bind(this, this);
         spinner1.setOnItemSelectedListener(this);
-
-        this.recyclerView = findViewById(R.id.listings_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
@@ -64,9 +61,9 @@ public class MainActivity extends AppCompatActivity implements MoviesInterface.V
     }
 
     @Override
-    public void populateListView(List<Movie> moviesList) {
+    public void onMoviesReady(List<Movie> moviesList) {
         if (adapter == null) {
-            adapter = new MovieAdapter(this, presenter, moviesList,this);
+            adapter = new MovieAdapter(this, moviesList,this);
             recyclerView.setAdapter(adapter);
         }
         else

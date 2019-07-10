@@ -1,10 +1,10 @@
-package com.example.moviedb.screens.home.Interfaces;
+package com.example.moviedb.screens.home.screens.movies;
 
 
 import android.content.Intent;
 
-import com.example.moviedb.screens.home.objects.Genre;
-import com.example.moviedb.screens.home.objects.Movie;
+import com.example.moviedb.screens.home.model.Genre;
+import com.example.moviedb.screens.home.model.Movie;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,7 +13,7 @@ public interface MoviesInterface {
 
         interface View {
                 void init();
-                void populateListView(List<Movie> moviesList);
+                void onMoviesReady(List<Movie> moviesList);
                 void onGenresReady(ArrayList<Genre> genres);
                 void onIntent(Intent intent);
         }

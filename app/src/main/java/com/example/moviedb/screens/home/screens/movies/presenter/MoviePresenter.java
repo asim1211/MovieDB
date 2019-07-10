@@ -1,13 +1,15 @@
-package com.example.moviedb.screens.home.presenter;
+package com.example.moviedb.screens.home.screens.movies.presenter;
 
 import android.app.Activity;
 
-import com.example.moviedb.screens.home.objects.Genre;
-import com.example.moviedb.screens.home.networkingObjects.GenreJSONResults;
-import com.example.moviedb.screens.home.networkingObjects.MovieJSONResult;
-import com.example.moviedb.screens.home.objects.Movie;
+import androidx.annotation.NonNull;
+
+import com.example.moviedb.screens.home.model.Genre;
+import com.example.moviedb.screens.home.model.GenreJSONResults;
+import com.example.moviedb.screens.home.model.MovieJSONResult;
+import com.example.moviedb.screens.home.model.Movie;
 import com.example.moviedb.screens.home.networking.RetrofitClientInstance;
-import com.example.moviedb.screens.home.Interfaces.MoviesInterface;
+import com.example.moviedb.screens.home.screens.movies.MoviesInterface;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,10 +24,7 @@ public class MoviePresenter implements MoviesInterface.Presenter {
     private Activity activity;
     private  MoviesInterface.View view;
 
-
-
     private ArrayList<Genre> genres;
-    private List<Movie> movies;
 
     public MoviePresenter(Activity activity, MoviesInterface.View view) {
         this.activity = activity;
@@ -49,7 +48,7 @@ public class MoviePresenter implements MoviesInterface.Presenter {
     public void getGenre() {
         RetrofitClientInstance.getInstance().getGenres(new Callback<GenreJSONResults>() {
             @Override
-            public void onResponse(Call<GenreJSONResults> genreCall, Response<GenreJSONResults> response) {
+            public void onResponse(@NonNull Call<GenreJSONResults> genreCall, @NonNull Response<GenreJSONResults> response) {
                 if (response.body() != null && response.body().getGenres().size() > 0) {
                     genres = response.body().getGenres();
                     view.onGenresReady(genres);
@@ -58,7 +57,7 @@ public class MoviePresenter implements MoviesInterface.Presenter {
             }
 
             @Override
-            public void onFailure(Call<GenreJSONResults> genreCall, Throwable throwable) {
+            public void onFailure(@NonNull Call<GenreJSONResults> genreCall, @NonNull Throwable throwable) {
                 throwable.printStackTrace();
             }
         });
@@ -67,13 +66,13 @@ public class MoviePresenter implements MoviesInterface.Presenter {
     public void getMovies(String genreId) {
         RetrofitClientInstance.getInstance().getMovies(genreId, new Callback<MovieJSONResult>() {
             @Override
-            public void onResponse(Call<MovieJSONResult>call, Response<MovieJSONResult> response) {
-                movies = response.body().getMovies();
-                view.populateListView(movies);
+            public void onResponse(@NonNull Call<MovieJSONResult>call, @NonNull  Response<MovieJSONResult> response) {
+                if (response.body() != null)
+                    view.onMoviesReady(response.body().getMovies());
             }
 
             @Override
-            public void onFailure(Call<MovieJSONResult> call, Throwable throwable) {
+            public void onFailure(@NonNull Call<MovieJSONResult> call, @NonNull Throwable throwable) {
                 throwable.printStackTrace();
             }
         });
