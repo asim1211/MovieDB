@@ -1,4 +1,4 @@
-package com.example.moviedb.screens.home;
+package com.example.moviedb.screens.home.Interfaces;
 
 
 import com.example.moviedb.screens.home.objects.MovieDetails;

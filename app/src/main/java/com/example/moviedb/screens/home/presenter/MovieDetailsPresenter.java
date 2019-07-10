@@ -4,7 +4,7 @@ import android.app.Activity;
 
 
 import com.example.moviedb.screens.home.networking.RetrofitClientInstance;
-import com.example.moviedb.screens.home.MovieDetailsView;
+import com.example.moviedb.screens.home.Interfaces.MovieDetailsView;
 import com.example.moviedb.screens.home.objects.MovieDetails;
 
 

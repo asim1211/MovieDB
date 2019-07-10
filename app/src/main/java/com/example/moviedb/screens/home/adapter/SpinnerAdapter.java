@@ -1,4 +1,4 @@
-package com.example.moviedb.screens.home;
+package com.example.moviedb.screens.home.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;

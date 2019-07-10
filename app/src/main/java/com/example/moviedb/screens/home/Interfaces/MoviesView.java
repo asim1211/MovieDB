@@ -1,4 +1,4 @@
-package com.example.moviedb.screens.home;
+package com.example.moviedb.screens.home.Interfaces;
 
 
 import android.content.Intent;

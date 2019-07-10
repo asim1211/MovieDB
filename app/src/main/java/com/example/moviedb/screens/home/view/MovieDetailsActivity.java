@@ -9,7 +9,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.bumptech.glide.Glide;
 import com.example.moviedb.screens.home.objects.MovieDetails;
 import com.example.moviedb.R;
-import com.example.moviedb.screens.home.MovieDetailsView;
+import com.example.moviedb.screens.home.Interfaces.MovieDetailsView;
 import com.example.moviedb.screens.home.presenter.MovieDetailsPresenter;
 
 import butterknife.BindView;

@@ -17,11 +17,11 @@ import android.widget.TextView;
 
 import com.example.moviedb.screens.home.objects.Genre;
 import com.example.moviedb.screens.home.objects.Movie;
-import com.example.moviedb.screens.home.SpinnerAdapter;
+import com.example.moviedb.screens.home.adapter.SpinnerAdapter;
 import com.example.moviedb.screens.home.adapter.MovieAdapter;
 import com.example.moviedb.screens.home.presenter.MoviePresenter;
 import com.example.moviedb.R;
-import com.example.moviedb.screens.home.MoviesView;
+import com.example.moviedb.screens.home.Interfaces.MoviesView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

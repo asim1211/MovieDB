@@ -4,10 +4,10 @@ import android.app.Activity;
 
 import com.example.moviedb.screens.home.objects.Genre;
 import com.example.moviedb.screens.home.networkingObjects.GenreJSONResults;
-import com.example.moviedb.screens.home.networkingObjects.JSONResult;
+import com.example.moviedb.screens.home.networkingObjects.MovieJSONResult;
 import com.example.moviedb.screens.home.objects.Movie;
 import com.example.moviedb.screens.home.networking.RetrofitClientInstance;
-import com.example.moviedb.screens.home.MoviesView;
+import com.example.moviedb.screens.home.Interfaces.MoviesView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,8 +41,6 @@ public class MoviePresenter implements MoviesView.Presenter {
 
     @Override
     public Genre getSelectedGenre(int position) {
-       // view.onIntent(new Intent(activity, MovieDetailsActivity.class));
-
         return genres.get(position);
     }
 
@@ -67,15 +65,15 @@ public class MoviePresenter implements MoviesView.Presenter {
     }
 
     public void getMovies(String genreId) {
-        RetrofitClientInstance.getInstance().getMovies(genreId, new Callback<JSONResult>() {
+        RetrofitClientInstance.getInstance().getMovies(genreId, new Callback<MovieJSONResult>() {
             @Override
-            public void onResponse(Call<JSONResult>call, Response<JSONResult> response) {
+            public void onResponse(Call<MovieJSONResult>call, Response<MovieJSONResult> response) {
                 movies = response.body().getMovies();
                 view.populateListView(movies);
             }
 
             @Override
-            public void onFailure(Call<JSONResult> call, Throwable throwable) {
+            public void onFailure(Call<MovieJSONResult> call, Throwable throwable) {
                 throwable.printStackTrace();
             }
         });

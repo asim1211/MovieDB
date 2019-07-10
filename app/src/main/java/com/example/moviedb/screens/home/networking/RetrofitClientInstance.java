@@ -1,8 +1,7 @@
 package com.example.moviedb.screens.home.networking;
 
 import com.example.moviedb.screens.home.networkingObjects.GenreJSONResults;
-import com.example.moviedb.screens.home.networkingObjects.JSONResult;
-import com.example.moviedb.MyInterface;
+import com.example.moviedb.screens.home.networkingObjects.MovieJSONResult;
 import com.example.moviedb.screens.home.objects.MovieDetails;
 import com.example.moviedb.screens.home.view.MainActivity;
 
@@ -11,14 +10,14 @@ import retrofit2.Callback;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class RetrofitClientInstance implements MyInterface {
+public class RetrofitClientInstance implements APIMethodsInterface {
     private static RetrofitClientInstance instance;
-    private MyInterface myInterface;
+    private APIMethodsInterface apiMethodsInterface;
 
     private static final String BASE_URL = "https://api.themoviedb.org/3/";
 
     private RetrofitClientInstance(){
-        this.myInterface = getRetrofitInstance().create(MyInterface.class);
+        this.apiMethodsInterface = getRetrofitInstance().create(APIMethodsInterface.class);
     }
 
     public Retrofit getRetrofitInstance() {
@@ -28,17 +27,17 @@ public class RetrofitClientInstance implements MyInterface {
                         .build();
     }
 
-    public void getMovies(String genre, Callback<JSONResult> resultCallback) {
-        myInterface.getMovies(MainActivity.key, genre, "popularity.desc").enqueue(resultCallback);
+    public void getMovies(String genre, Callback<MovieJSONResult> resultCallback) {
+        apiMethodsInterface.getMovies(MainActivity.key, genre, "popularity.desc").enqueue(resultCallback);
     }
 
     public void getGenres(Callback<GenreJSONResults> resultCallback) {
-        myInterface.getGenre(MainActivity.key).enqueue(resultCallback);
+        apiMethodsInterface.getGenre(MainActivity.key).enqueue(resultCallback);
     }
 
     public void getMovieDetails(String id,Callback<MovieDetails> resultCallback){
 
-        myInterface.getMovieDetails(id,MainActivity.key).enqueue(resultCallback);
+        apiMethodsInterface.getMovieDetails(id,MainActivity.key).enqueue(resultCallback);
     }
 
     public static RetrofitClientInstance getInstance() {
@@ -48,15 +47,15 @@ public class RetrofitClientInstance implements MyInterface {
     }
 
     @Override
-    public Call<JSONResult> getMovies(String key, String geners, String popularity) {
-        return myInterface.getMovies(key,geners,popularity);
+    public Call<MovieJSONResult> getMovies(String key, String geners, String popularity) {
+        return apiMethodsInterface.getMovies(key,geners,popularity);
     }
 
     @Override
     public Call<GenreJSONResults> getGenre(String key) {
-        return myInterface.getGenre(key);
+        return apiMethodsInterface.getGenre(key);
     }
 
     @Override
-    public Call<MovieDetails> getMovieDetails(String key,String movieID) { return myInterface.getMovieDetails(key, movieID); }
+    public Call<MovieDetails> getMovieDetails(String key,String movieID) { return apiMethodsInterface.getMovieDetails(key, movieID); }
 }

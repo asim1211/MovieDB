@@ -7,7 +7,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class JSONResult {
+public class MovieJSONResult {
 
     @SerializedName("results")
     @Expose

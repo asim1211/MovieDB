@@ -27,7 +27,4 @@ public class Genre {
         return name;
     }
 
-    public boolean compareTo(Genre genre) {
-        return genre.getId().equals(id);
-    }
 }

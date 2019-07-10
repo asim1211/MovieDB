@@ -38,7 +38,8 @@ public class MovieDetails {
     private String vote_average;
 
 
-    public MovieDetails (String title, String original_language, String overview, String release_date, String poster_path, String backdrop_path, String vote_average){
+    public MovieDetails (String title, String original_language, String overview, String release_date,
+                         String poster_path, String backdrop_path, String vote_average){
         this.title = title;
         this.original_language = original_language;
         this.overview = overview;
