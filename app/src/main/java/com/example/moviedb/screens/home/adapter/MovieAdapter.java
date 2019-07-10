@@ -16,7 +16,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.moviedb.screens.home.objects.Movie;
 import com.example.moviedb.R;
-import com.example.moviedb.screens.home.Interfaces.MoviesView;
+import com.example.moviedb.screens.home.Interfaces.MoviesInterface;
+import com.example.moviedb.screens.home.view.MainActivity;
 import com.example.moviedb.screens.home.view.MovieDetailsActivity;
 
 import butterknife.BindView;
@@ -27,12 +28,14 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
     private List<Movie> movies;
     private Context context;
 
-    private MoviesView.Presenter movieDetailsPresenter;
+    private MoviesInterface.Presenter moviePresenter;
+    MoviesInterface.View movieView;
 
-    public MovieAdapter(Context context, MoviesView.Presenter movieDetailsPresenter, List<Movie> movies){
+    public MovieAdapter(Context context, MoviesInterface.Presenter moviePresenter, List<Movie> movies,MoviesInterface.View movieView){
         this.context = context;
         this.movies = movies;
-        this.movieDetailsPresenter = movieDetailsPresenter;
+        this.moviePresenter = moviePresenter;
+        this.movieView = movieView;
     }
 
 
@@ -107,7 +110,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
 
                 Intent intent = new Intent (context, MovieDetailsActivity.class);
                 intent.putExtra("MOVIE_ID", movies.get(pos).getID());
-                context.startActivity(intent);
+
+                movieView.onIntent(intent);
             });
         }
 

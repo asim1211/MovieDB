@@ -9,13 +9,13 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.bumptech.glide.Glide;
 import com.example.moviedb.screens.home.objects.MovieDetails;
 import com.example.moviedb.R;
-import com.example.moviedb.screens.home.Interfaces.MovieDetailsView;
+import com.example.moviedb.screens.home.Interfaces.MovieDetailsInterface;
 import com.example.moviedb.screens.home.presenter.MovieDetailsPresenter;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class MovieDetailsActivity extends AppCompatActivity implements MovieDetailsView.View {
+public class MovieDetailsActivity extends AppCompatActivity implements MovieDetailsInterface.View {
 
     public MovieDetailsPresenter movieDetailsPresenter;
 

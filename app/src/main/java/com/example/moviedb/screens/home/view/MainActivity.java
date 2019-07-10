@@ -21,13 +21,13 @@ import com.example.moviedb.screens.home.adapter.SpinnerAdapter;
 import com.example.moviedb.screens.home.adapter.MovieAdapter;
 import com.example.moviedb.screens.home.presenter.MoviePresenter;
 import com.example.moviedb.R;
-import com.example.moviedb.screens.home.Interfaces.MoviesView;
+import com.example.moviedb.screens.home.Interfaces.MoviesInterface;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
-public class MainActivity extends AppCompatActivity implements MoviesView.View, AdapterView.OnItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements MoviesInterface.View, AdapterView.OnItemSelectedListener {
 
     public static String key = "6a454f1310829848d7744fcda5a5cb30";
 
@@ -35,7 +35,6 @@ public class MainActivity extends AppCompatActivity implements MoviesView.View, 
     private RecyclerView recyclerView;
 
     private MovieAdapter adapter;
-
     private MoviePresenter presenter;
 
     @Override
@@ -67,7 +66,7 @@ public class MainActivity extends AppCompatActivity implements MoviesView.View, 
     @Override
     public void populateListView(List<Movie> moviesList) {
         if (adapter == null) {
-            adapter = new MovieAdapter(this, presenter, moviesList);
+            adapter = new MovieAdapter(this, presenter, moviesList,this);
             recyclerView.setAdapter(adapter);
         }
         else

@@ -5,8 +5,7 @@ import com.example.moviedb.screens.home.objects.MovieDetails;
 
 
 
-public interface MovieDetailsView {
-
+public interface MovieDetailsInterface {
 
     interface View {
         void init();
@@ -15,7 +14,5 @@ public interface MovieDetailsView {
 
     interface Presenter {
         void init(String movieID);
-
-
     }
 }

@@ -7,7 +7,7 @@ import com.example.moviedb.screens.home.networkingObjects.GenreJSONResults;
 import com.example.moviedb.screens.home.networkingObjects.MovieJSONResult;
 import com.example.moviedb.screens.home.objects.Movie;
 import com.example.moviedb.screens.home.networking.RetrofitClientInstance;
-import com.example.moviedb.screens.home.Interfaces.MoviesView;
+import com.example.moviedb.screens.home.Interfaces.MoviesInterface;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,18 +16,18 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MoviePresenter implements MoviesView.Presenter {
+public class MoviePresenter implements MoviesInterface.Presenter {
 
 
     private Activity activity;
-    private  MoviesView.View view;
+    private  MoviesInterface.View view;
 
-    private MoviesView.Presenter movieDetailsPresenter;
+
 
     private ArrayList<Genre> genres;
     private List<Movie> movies;
 
-    public MoviePresenter(Activity activity, MoviesView.View view) {
+    public MoviePresenter(Activity activity, MoviesInterface.View view) {
         this.activity = activity;
         this.view = view;
     }

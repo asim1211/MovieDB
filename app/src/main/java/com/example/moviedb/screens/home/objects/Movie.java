@@ -25,7 +25,6 @@ public class Movie {
     @Expose
     private String poster_path;
 
-
     @SerializedName("id")
     @Expose
     private String id;

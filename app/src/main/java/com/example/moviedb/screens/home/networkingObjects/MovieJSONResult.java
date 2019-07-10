@@ -14,7 +14,6 @@ public class MovieJSONResult {
     private List<Movie> movies;
 
 
-
     public List<Movie> getMovies(){
         return movies;
     }

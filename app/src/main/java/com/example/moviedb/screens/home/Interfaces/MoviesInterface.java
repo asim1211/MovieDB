@@ -9,7 +9,7 @@ import com.example.moviedb.screens.home.objects.Movie;
 import java.util.ArrayList;
 import java.util.List;
 
-public interface MoviesView {
+public interface MoviesInterface {
 
         interface View {
                 void init();
@@ -21,7 +21,6 @@ public interface MoviesView {
         interface Presenter {
                 void init();
                 Genre getSelectedGenre(int position);
-                //void getDetails(int position);
         }
 
 }

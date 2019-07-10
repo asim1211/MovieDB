@@ -4,7 +4,7 @@ import android.app.Activity;
 
 
 import com.example.moviedb.screens.home.networking.RetrofitClientInstance;
-import com.example.moviedb.screens.home.Interfaces.MovieDetailsView;
+import com.example.moviedb.screens.home.Interfaces.MovieDetailsInterface;
 import com.example.moviedb.screens.home.objects.MovieDetails;
 
 
@@ -12,13 +12,13 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MovieDetailsPresenter implements MovieDetailsView.Presenter {
+public class MovieDetailsPresenter implements MovieDetailsInterface.Presenter {
 
     private Activity activity;
-    private MovieDetailsView.View view;
+    private MovieDetailsInterface.View view;
 
 
-    public MovieDetailsPresenter(Activity activity, MovieDetailsView.View view){
+    public MovieDetailsPresenter(Activity activity, MovieDetailsInterface.View view){
         this.activity = activity;
         this.view = view;
 
@@ -29,7 +29,6 @@ public class MovieDetailsPresenter implements MovieDetailsView.Presenter {
         getMovieDetails(movieID);
 
         view.init();
-
     }
 
 
