@@ -42,7 +42,7 @@ public class MovieDetailsPresenter implements MovieDetailsInterface.Presenter {
             @Override
             public void onResponse(@NonNull Call<MovieDetails> call, @NonNull Response<MovieDetails> response) {
                 MovieDetails movieDetails = response.body();
-                if (movieDetails != null) {
+                if (movieDetails != null && activity != null && !activity.isDestroyed()) {
                     view.onMovieReady(movieDetails);
                     view.onBackDropReady(getDrawableRequest(movieDetails.getBackdrop_path()));
                     view.onPosterReady(getDrawableRequest(movieDetails.getPoster_path()));
