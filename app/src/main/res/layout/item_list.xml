@@ -75,7 +75,7 @@
             android:minWidth="0dp"
             android:paddingStart="8dp"
             android:paddingEnd="8dp"
-            android:textColor="#FFFFFFFF"
+            android:textColor="@android:color/white"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintBottom_toBottomOf="parent" />
 
@@ -88,7 +88,7 @@
             android:minWidth="0dp"
             android:paddingStart="8dp"
             android:paddingEnd="8dp"
-            android:textColor="#FFFFFFFF"
+            android:textColor="@android:color/white"
             app:layout_constraintTop_toTopOf="@+id/item_movie_language"
             app:layout_constraintStart_toEndOf="@+id/item_movie_language" />
 
