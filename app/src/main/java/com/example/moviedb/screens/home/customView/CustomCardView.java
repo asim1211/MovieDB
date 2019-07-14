@@ -1,15 +1,17 @@
 package com.example.moviedb.screens.home.customView;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.util.AttributeSet;
-import android.view.LayoutInflater;
-import android.view.View;
+import android.view.ViewGroup;
+
 
 import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.RecyclerView;
+
 
 import com.example.moviedb.R;
 
-import butterknife.ButterKnife;
 
 public class CustomCardView extends CardView {
 
@@ -29,7 +31,19 @@ public class CustomCardView extends CardView {
     }
 
     public void init(Context context) {
-        View v = LayoutInflater.from(context).inflate(R.layout.custom_card_view, this, true);
-        ButterKnife.bind(this, v);
+        inflate(context, R.layout.custom_card_view, this);
+
+        Resources res = getResources();
+
+        int dp8 = res.getDimensionPixelOffset(R.dimen.margin_card_view);
+        RecyclerView.LayoutParams params = new RecyclerView.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        params.topMargin = dp8;
+        params.bottomMargin = dp8;
+        params.setMarginEnd(dp8 * 2);
+        params.setMarginStart(dp8 * 2);
+        setLayoutParams(params);
+
+        setCardElevation(res.getDimensionPixelSize(R.dimen.elevation_card_view));
+        setRadius(res.getDimensionPixelSize(R.dimen.radius_card_view));
     }
 }
