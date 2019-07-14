@@ -1,101 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
 
-<androidx.cardview.widget.CardView
+<com.example.moviedb.screens.home.customView.CustomCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    style="@style/CardView.Light"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/item"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginTop="8dp"
-    android:layout_marginStart="8dp"
-    android:layout_marginEnd="8dp"
-
-    app:cardCornerRadius="5dp"
-    app:cardElevation="10dp">
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/PLAY_PARENT">
-
-        <ImageView
-            android:id="@+id/item_movie_poster"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:scaleType="centerCrop"
-            app:layout_constraintDimensionRatio="H,1:1"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent" />
-
-        <View
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:background="#7F000000"
-            app:layout_constraintTop_toTopOf="@+id/top_space"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" />
-
-        <Space
-            android:id="@+id/top_space"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="24dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/item_movie_title"/>
-
-        <TextView
-            android:id="@+id/item_movie_title"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-            android:textColor="#FFFFFFFF"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/item_movie_overview"/>
-
-        <TextView
-            android:id="@+id/item_movie_overview"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="16dp"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            android:textColor="#B3FFFFFF"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintBottom_toTopOf="@+id/item_movie_language" />
-
-        <TextView
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:id="@+id/item_movie_language"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:minWidth="0dp"
-            android:paddingStart="8dp"
-            android:paddingEnd="8dp"
-            android:textColor="@android:color/white"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent" />
-
-        <TextView
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:id="@+id/item_movie_release_date"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:minWidth="0dp"
-            android:paddingStart="8dp"
-            android:paddingEnd="8dp"
-            android:textColor="@android:color/white"
-            app:layout_constraintTop_toTopOf="@+id/item_movie_language"
-            app:layout_constraintStart_toEndOf="@+id/item_movie_language" />
-
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-</androidx.cardview.widget.CardView>
+    android:layout_height="match_parent"
+    tools:context="com.example.moviedb.screens.home.screens.movies.view.MainActivity" />

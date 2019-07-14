@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.moviedb.screens.home.customView.CustomCardView;
 import com.example.moviedb.screens.home.helper.Intents;
 import com.example.moviedb.screens.home.utils.Constants;
 import com.example.moviedb.screens.home.model.Movie;
@@ -41,6 +42,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new ViewHolder(LayoutInflater.from(context).inflate(R.layout.item_list, parent, false));
+//        return new ViewHolder(new CustomCardView(context));
     }
 
     @Override
