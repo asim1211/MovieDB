@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.example.moviedb.screens.home.customView.CustomCardView;
 import com.example.moviedb.screens.home.helper.Intents;
 import com.example.moviedb.screens.home.utils.Constants;
@@ -86,7 +87,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
             movieLanguage.setText(String.format("%s %s", context.getString(R.string.language_label_movie_adapter), thisMovie.getOriginal_language()));
 
             if(thisMovie.getPoster_path() != null && thisMovie.getPoster_path().length() > 0)
-                Glide.with(context).load(Constants.ORIGINAL_IMAGE_URL_DOMAIN_MOVIE_DB + thisMovie.getPoster_path()).into(movieImage);
+                Glide.with(context).load(Constants.ORIGINAL_IMAGE_URL_DOMAIN_MOVIE_DB + thisMovie.getPoster_path()).transition(DrawableTransitionOptions.withCrossFade()).into(movieImage);
 
             else
                 Glide.with(context).load(R.mipmap.ic_launcher_round).into(movieImage);

@@ -10,6 +10,7 @@ import androidx.annotation.NonNull;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.RequestBuilder;
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.example.moviedb.R;
 import com.example.moviedb.screens.home.networking.RetrofitClientInstance;
 import com.example.moviedb.screens.home.screens.moviedetail.MovieDetailsInterface;
@@ -58,8 +59,8 @@ public class MovieDetailsPresenter implements MovieDetailsInterface.Presenter {
 
     private RequestBuilder<Drawable> getDrawableRequest(String imageUrl) {
         if (Strings.getInstance().isStringNotEmpty(imageUrl))
-            return Glide.with(activity).load(Constants.ORIGINAL_IMAGE_URL_DOMAIN_MOVIE_DB + imageUrl);
+            return Glide.with(activity).load(Constants.ORIGINAL_IMAGE_URL_DOMAIN_MOVIE_DB + imageUrl).transition(DrawableTransitionOptions.withCrossFade());
         else
-            return Glide.with(activity).load(R.mipmap.ic_launcher_round);
+            return Glide.with(activity).load(R.mipmap.ic_launcher_round).transition(DrawableTransitionOptions.withCrossFade());
     }
 }
