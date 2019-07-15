@@ -6,15 +6,13 @@
     android:layout_height="match_parent">
 
 
-
     <Spinner
         android:id="@+id/spinner1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/lightGray"
-        android:textColor="@color/white"
+        android:layout_height="25dp"
+        android:background="@drawable/spinner_bg"
+        android:textColor="@color/articlecolor"
         android:spinnerMode="dialog"/>
-
 
 
     <androidx.recyclerview.widget.RecyclerView

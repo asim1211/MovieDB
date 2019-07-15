@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements MoviesInterface.V
     @Override
     public void onGenresReady(ArrayList<Genre> genres) {
         SpinnerAdapter dataAdapter = new SpinnerAdapter(this, genres);
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        dataAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         spinner1.setAdapter(dataAdapter);
     }
 
@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity implements MoviesInterface.V
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int pos, long l) {
-        ((TextView) parent.getChildAt(0)).setTextColor(Color.WHITE);
+        ((TextView) parent.getChildAt(0)).setTextColor(R.color.articlecolor);
 
         presenter.getMovies(presenter.getSelectedGenre(pos).getId());
     }

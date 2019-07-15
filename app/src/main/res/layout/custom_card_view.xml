@@ -54,7 +54,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:textColor="#B3FFFFFF"
+        android:textColor="@color/articlecolor"
         android:maxLines="2"
         android:ellipsize="end"
         android:layout_marginStart="16dp"
