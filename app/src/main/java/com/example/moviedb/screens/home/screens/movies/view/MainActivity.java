@@ -1,7 +1,5 @@
 package com.example.moviedb.screens.home.screens.movies.view;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -10,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Intent;
-import android.graphics.Color;
+
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
