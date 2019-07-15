@@ -1,5 +1,7 @@
 package com.example.moviedb.screens.home.screens.movies.view;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -72,7 +74,7 @@ public class MainActivity extends AppCompatActivity implements MoviesInterface.V
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int pos, long l) {
-        ((TextView) parent.getChildAt(0)).setTextColor(R.color.articlecolor);
+        ((TextView) parent.getChildAt(0)).setTextColor(getResources().getColor(R.color.gray));
 
         presenter.getMovies(presenter.getSelectedGenre(pos).getId());
     }
