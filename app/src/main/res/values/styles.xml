@@ -14,10 +14,13 @@
         <item name="android:windowFullscreen">true</item>
     </style>
 
-    <style name="spinnerItemStyle" parent="android:Widget.TextView.SpinnerItem">
+    <style name="MatchSpinnerStyle" parent="android:style/Widget.ListView.DropDown">
+        <item name="android:divider">#123456</item>
+        <item name="android:dividerHeight">1dp</item>
     </style>
 
-    <style name="spinnerDropDownItemStyle" parent="android:TextAppearance.Widget.TextView.SpinnerItem">
+    <style name="MatchSpinnerTheme" parent="AppTheme">
+        <item name="android:dropDownListViewStyle">@style/MatchSpinnerStyle</item>
     </style>
 
 </resources>
