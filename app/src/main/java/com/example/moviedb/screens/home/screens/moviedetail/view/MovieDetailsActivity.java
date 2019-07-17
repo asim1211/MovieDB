@@ -45,7 +45,7 @@ public class MovieDetailsActivity extends AppCompatActivity implements MovieDeta
         original_language.setText(String.format("%s %s", getString(R.string.language_label_movie_detail), movieDetails.getOriginal_language()));
         vote_average.setText(String.format("%s %s", getString(R.string.rating_label_movie_detail), movieDetails.getVote_average()));
         release_date.setText(String.format("%s %s", getString(R.string.date_label_movie_detail), movieDetails.getRelease_date()));
-        overview.setText(movieDetails.getOverview());
+        //overview.setText(movieDetails.getOverview());
     }
 
     @Override
