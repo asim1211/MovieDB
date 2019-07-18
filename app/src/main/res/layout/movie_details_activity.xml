@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.core.widget.NestedScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
 
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
 
-    android:background="#263238">
+    <androidx.constraintlayout.motion.widget.MotionLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        app:layoutDescription="@xml/motion_layout_example"
+    
+        android:background="#263238"
 
-    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:id="@+id/constraint_layout">
 
         <ImageView
@@ -74,6 +73,15 @@
             app:layout_constraintStart_toStartOf="@id/title"
             app:layout_constraintEnd_toEndOf="@id/title"/>
 
+    <androidx.core.widget.NestedScrollView
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/scroller"
+        app:layout_constraintTop_toBottomOf="@+id/language"
+        app:layout_constraintStart_toStartOf="@id/title"
+        app:layout_constraintEnd_toEndOf="@id/title">
+
         <TextView
             android:id="@+id/overview"
             android:layout_width="0dp"
@@ -86,6 +94,7 @@
             app:layout_constraintTop_toBottomOf="@+id/language"
             app:layout_constraintStart_toStartOf="@id/title"
             app:layout_constraintEnd_toEndOf="@id/title"/>
+    </androidx.core.widget.NestedScrollView>
 
         <TextView
             android:id="@+id/rating"
@@ -118,6 +127,5 @@
             app:layout_constraintTop_toBottomOf="@+id/rating" />
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.motion.widget.MotionLayout >
 
-</androidx.core.widget.NestedScrollView>
