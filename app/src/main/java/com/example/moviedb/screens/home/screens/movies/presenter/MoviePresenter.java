@@ -38,10 +38,8 @@ public class MoviePresenter implements MoviesInterface.Presenter {
 
     @Override
     public void init() {
-        System.out.println("------------first--------------");
         realmDatabase.init(activity);
         realmDatabase = Realm.getDefaultInstance();
-
 
         view.init();
 
@@ -60,17 +58,18 @@ public class MoviePresenter implements MoviesInterface.Presenter {
             @Override
             public void onResponse(@NonNull Call<GenreJSONResults> genreCall, @NonNull Response<GenreJSONResults> response) {
                 if (response.body() != null && response.body().getGenres().size() > 0) {
-                    genres = response.body().getGenres();
-                    view.onGenresReady(genres);
-                    getMovies(genres.get(0).getId());
+                    saveGenre(response.body().getGenres());
                 }
             }
-
             @Override
             public void onFailure(@NonNull Call<GenreJSONResults> genreCall, @NonNull Throwable throwable) {
                 throwable.printStackTrace();
             }
         });
+
+        genres = new ArrayList(realmDatabase.where(Genre.class).findAll());
+        view.onGenresReady(genres);
+        getMovies(genres.get(0).getId());
     }
 
     public void getMovies(String genreId) {
@@ -78,21 +77,17 @@ public class MoviePresenter implements MoviesInterface.Presenter {
             @Override
             public void onResponse(@NonNull Call<MovieJSONResult>call, @NonNull  Response<MovieJSONResult> response) {
                 if (response.body() != null) {
-
-                    System.out.println("-----------------2--------------");
-                    System.out.println(response.body().getMovies().get(0).getGenre_ids().get(0));
                     saveMovies(response.body().getMovies());
-
-                    ArrayList<Movie> movies = new ArrayList(realmDatabase.where(Movie.class).findAll());
-                    view.onMoviesReady(movies);
                 }
             }
-
             @Override
             public void onFailure(@NonNull Call<MovieJSONResult> call, @NonNull Throwable throwable) {
                 throwable.printStackTrace();
             }
         });
+
+        List<Movie> movies = new ArrayList(realmDatabase.where(Movie.class).findAll());
+        view.onMoviesReady(filterMovies(movies,genreId));
     }
 
     public void saveMovies(List<Movie> moviesList){
@@ -104,7 +99,31 @@ public class MoviePresenter implements MoviesInterface.Presenter {
             });
         }
 
+    }
 
+
+    public void saveGenre(List<Genre> genreList) {
+        try (Realm realm = Realm.getDefaultInstance()) {
+            realm.executeTransaction(realm1 -> {
+                RealmList<Genre> realmList = new RealmList<>();
+                realmList.addAll(genreList);
+                realm1.insertOrUpdate(realmList);
+            });
+        }
+
+    }
+
+
+        public List<Movie> filterMovies(List<Movie> moviesList, String genreID){
+
+        List<Movie> filteredMovies = new ArrayList<Movie>();
+        for( Movie m : moviesList) {
+            if (m.getGenre_ids().contains(genreID))
+                filteredMovies.add(m);
+
+        }
+
+        return filteredMovies;
     }
 
 
