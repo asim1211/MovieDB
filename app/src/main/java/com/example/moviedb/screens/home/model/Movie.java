@@ -3,6 +3,10 @@ package com.example.moviedb.screens.home.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import io.realm.RealmList;
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
 
@@ -33,6 +37,12 @@ public class Movie extends RealmObject {
     @Expose
     private String id;
 
+    @SerializedName("genre_ids")
+    @Expose
+    private RealmList<String> genre_ids;
+
+
+
 
 
 
@@ -40,13 +50,14 @@ public class Movie extends RealmObject {
 
     }
 
-    public Movie (String title, String original_language, String overview, String release_date, String poster_path, String id){
+    public Movie (String title, String original_language, String overview, String release_date, String poster_path, String id, RealmList<String> genre_ids ){
         this.title = title;
         this.original_language = original_language;
         this.overview = overview;
         this.release_date = release_date;
         this.poster_path = poster_path;
         this.id = id;
+        this.genre_ids = genre_ids;
     }
 
 
@@ -67,5 +78,9 @@ public class Movie extends RealmObject {
 
     public String getID(){
         return id;
+    }
+
+    public RealmList<String> getGenre_ids() {
+        return genre_ids;
     }
 }
