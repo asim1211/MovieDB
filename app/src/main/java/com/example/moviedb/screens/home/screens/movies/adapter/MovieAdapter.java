@@ -1,11 +1,8 @@
 package com.example.moviedb.screens.home.screens.movies.adapter;
 
-import android.content.Intent;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import java.util.List;
 import android.content.Context;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -17,53 +14,36 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
 import com.example.moviedb.screens.home.customView.CustomCardView;
 import com.example.moviedb.screens.home.helper.Intents;
-import com.example.moviedb.screens.home.utils.Constants;
 import com.example.moviedb.screens.home.model.Movie;
+import com.example.moviedb.screens.home.utils.Constants;
 import com.example.moviedb.R;
 import com.example.moviedb.screens.home.screens.movies.MoviesInterface;
-import com.example.moviedb.screens.home.screens.moviedetail.view.MovieDetailsActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.realm.RealmRecyclerViewAdapter;
+import io.realm.RealmResults;
 
-public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> {
-
-    private List<Movie> movies;
+public class MovieAdapter extends RealmRecyclerViewAdapter<Movie, MovieAdapter.ViewHolder> {
     private Context context;
 
     private MoviesInterface.View movieView;
 
-    public MovieAdapter(Context context, List<Movie> movies, MoviesInterface.View movieView){
+    public MovieAdapter(Context context, RealmResults<Movie> movieObjects, MoviesInterface.View movieView){
+        super(movieObjects, true);
         this.context = context;
-        this.movies = movies;
         this.movieView = movieView;
     }
 
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public MovieAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new ViewHolder(new CustomCardView(context));
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        holder.populate(movies.get(position));
-    }
-
-    @Override
-    public long getItemId(int i) {
-        return i;
-    }
-
-    @Override
-    public int getItemCount() {
-        return this.movies.size();
-    }
-
-    public void updateData(List<Movie> movies) {
-        this.movies.clear();
-        this.movies.addAll(movies);
-        notifyDataSetChanged();
+    public void onBindViewHolder(@NonNull MovieAdapter.ViewHolder pHolder, int position) {
+        pHolder.populate(getItem(position));
     }
 
 
@@ -80,25 +60,25 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
             ButterKnife.bind(this, view);
         }
 
-        private void populate(Movie thisMovie) {
-            movieOverview.setText(thisMovie.getOverview());
-            movieTitle.setText(thisMovie.getTitle());
-            movieDate.setText(String.format("%s %s", context.getString(R.string.date_label_movie_adapter), thisMovie.getRelease_date()));
-            movieLanguage.setText(String.format("%s %s", context.getString(R.string.language_label_movie_adapter), thisMovie.getOriginal_language()));
+        private void populate(Movie thisMovieObject) {
+            movieOverview.setText(thisMovieObject.getOverview());
+            movieTitle.setText(thisMovieObject.getTitle());
+            movieDate.setText(String.format("%s %s", context.getString(R.string.date_label_movie_adapter), thisMovieObject.getRelease_date()));
+            movieLanguage.setText(String.format("%s %s", context.getString(R.string.language_label_movie_adapter), thisMovieObject.getOriginal_language()));
 
-            if(thisMovie.getPoster_path() != null && thisMovie.getPoster_path().length() > 0)
-                Glide.with(context).load(Constants.ORIGINAL_IMAGE_URL_DOMAIN_MOVIE_DB + thisMovie.getPoster_path()).transition(DrawableTransitionOptions.withCrossFade()).into(movieImage);
+            if(thisMovieObject.getPoster_path() != null && thisMovieObject.getPoster_path().length() > 0)
+                Glide.with(context).load(Constants.ORIGINAL_IMAGE_URL_DOMAIN_MOVIE_DB + thisMovieObject.getPoster_path()).transition(DrawableTransitionOptions.withCrossFade()).into(movieImage);
 
             else
                 Glide.with(context).load(R.mipmap.ic_launcher_round).into(movieImage);
 
-            onItemClicked(thisMovie);
+            onItemClicked(thisMovieObject);
         }
 
 
-        private void onItemClicked(Movie movie) {
+        private void onItemClicked(Movie movieObject) {
             itemView.setOnClickListener(view -> {
-                movieView.onIntent(Intents.getInstance().getMovieDetailIntent(context, movie.getID()));
+                movieView.onIntent(Intents.getInstance().getMovieDetailIntent(context, movieObject.getID()));
             });
         }
     }

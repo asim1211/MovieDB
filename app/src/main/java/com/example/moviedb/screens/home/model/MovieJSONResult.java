@@ -1,7 +1,6 @@
 package com.example.moviedb.screens.home.model;
 
 
-import com.example.moviedb.screens.home.model.Movie;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
@@ -11,11 +10,11 @@ public class MovieJSONResult {
 
     @SerializedName("results")
     @Expose
-    private List<Movie> movies;
+    private List<Movie> movieObjects;
 
 
-    public List<Movie> getMovies(){
-        return movies;
+    public List<Movie> getMovieObjects(){
+        return movieObjects;
     }
 }
 

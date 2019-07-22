@@ -14,12 +14,15 @@ import com.example.moviedb.screens.home.model.Genre;
 import com.example.moviedb.R;
 
 import java.util.ArrayList;
+import java.util.List;
+
+import io.realm.RealmResults;
 
 public class SpinnerAdapter extends ArrayAdapter<Genre> {
 
     private LayoutInflater inflater;
 
-    public SpinnerAdapter(Context context, ArrayList<Genre> genres) {
+    public SpinnerAdapter(Context context, List<Genre> genres) {
         super(context, 0, genres);
         this.inflater = LayoutInflater.from(context);
     }

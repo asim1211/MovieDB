@@ -4,7 +4,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Intent;
@@ -25,6 +24,7 @@ import com.example.moviedb.screens.home.screens.movies.MoviesInterface;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import io.realm.RealmResults;
 
 
 public class MainActivity extends AppCompatActivity implements MoviesInterface.View, AdapterView.OnItemSelectedListener {
@@ -34,7 +34,6 @@ public class MainActivity extends AppCompatActivity implements MoviesInterface.V
     @BindView(R.id.spinner1) Spinner spinner1;
     @BindView(R.id.listings_view) RecyclerView recyclerView;
 
-    private MovieAdapter adapter;
     private MoviePresenter presenter;
 
     @Override
@@ -54,20 +53,15 @@ public class MainActivity extends AppCompatActivity implements MoviesInterface.V
     }
 
     @Override
-    public void onGenresReady(ArrayList<Genre> genres) {
+    public void onGenresReady(List<Genre> genres) {
         SpinnerAdapter dataAdapter = new SpinnerAdapter(this, genres);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         spinner1.setAdapter(dataAdapter);
     }
 
     @Override
-    public void onMoviesReady(List<Movie> moviesList) {
-        if (adapter == null) {
-            adapter = new MovieAdapter(this, moviesList,this);
-            recyclerView.setAdapter(adapter);
-        }
-        else
-            adapter.updateData(moviesList);
+    public void onMoviesReady(RealmResults<Movie> moviesList) {
+        recyclerView.setAdapter(new MovieAdapter(this, moviesList,this));
     }
 
     @Override

@@ -13,6 +13,10 @@ import io.realm.annotations.PrimaryKey;
 public class Movie extends RealmObject {
 
     @PrimaryKey
+    @SerializedName("id")
+    @Expose
+    private String id;
+
     @SerializedName("title")
     @Expose
     private String title;
@@ -33,34 +37,13 @@ public class Movie extends RealmObject {
     @Expose
     private String poster_path;
 
-    @SerializedName("id")
-    @Expose
-    private String id;
-
     @SerializedName("genre_ids")
     @Expose
-    private RealmList<String> genre_ids;
+    public RealmList<String> genre_ids;
 
+    public String genre;
 
-
-
-
-
-    public Movie(){
-
-    }
-
-    public Movie (String title, String original_language, String overview, String release_date, String poster_path, String id, RealmList<String> genre_ids ){
-        this.title = title;
-        this.original_language = original_language;
-        this.overview = overview;
-        this.release_date = release_date;
-        this.poster_path = poster_path;
-        this.id = id;
-        this.genre_ids = genre_ids;
-    }
-
-
+    public Movie() {}
 
     public String getTitle(){
         return title;

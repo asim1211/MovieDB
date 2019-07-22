@@ -6,15 +6,16 @@ import android.content.Intent;
 import com.example.moviedb.screens.home.model.Genre;
 import com.example.moviedb.screens.home.model.Movie;
 
-import java.util.ArrayList;
 import java.util.List;
+
+import io.realm.RealmResults;
 
 public interface MoviesInterface {
 
         interface View {
                 void init();
-                void onMoviesReady(List<Movie> moviesList);
-                void onGenresReady(ArrayList<Genre> genres);
+                void onMoviesReady(RealmResults<Movie> moviesList);
+                void onGenresReady(List<Genre> genres);
                 void onIntent(Intent intent);
         }
 
