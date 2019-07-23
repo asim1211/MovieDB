@@ -33,7 +33,6 @@ public class MainActivity extends AppCompatActivity implements MoviesInterface.V
 
     @BindView(R.id.spinner1) Spinner spinner1;
     @BindView(R.id.listings_view) RecyclerView recyclerView;
-
     private MoviePresenter presenter;
 
     @Override
@@ -44,6 +43,8 @@ public class MainActivity extends AppCompatActivity implements MoviesInterface.V
 
         presenter = new MoviePresenter(this, this);
         presenter.init();
+
+
     }
 
     @Override
@@ -69,7 +70,6 @@ public class MainActivity extends AppCompatActivity implements MoviesInterface.V
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int pos, long l) {
         ((TextView) parent.getChildAt(0)).setTextColor(getResources().getColor(R.color.gray));
-
         presenter.getMovies(presenter.getSelectedGenre(pos).getId());
     }
 
@@ -80,6 +80,14 @@ public class MainActivity extends AppCompatActivity implements MoviesInterface.V
     public void onIntent(Intent intent) {
         startActivity(intent);
     }
+
+
+
+
+
+
+
+
 }
 
 

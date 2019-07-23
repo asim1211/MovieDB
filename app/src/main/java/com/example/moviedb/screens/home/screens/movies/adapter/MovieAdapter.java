@@ -24,10 +24,12 @@ import butterknife.ButterKnife;
 import io.realm.RealmRecyclerViewAdapter;
 import io.realm.RealmResults;
 
-public class MovieAdapter extends RealmRecyclerViewAdapter<Movie, MovieAdapter.ViewHolder> {
+public class MovieAdapter extends RealmRecyclerViewAdapter<Movie, MovieAdapter.ViewHolder>{
     private Context context;
 
     private MoviesInterface.View movieView;
+    private int count = 0;
+
 
     public MovieAdapter(Context context, RealmResults<Movie> movieObjects, MoviesInterface.View movieView){
         super(movieObjects, true);
@@ -44,6 +46,16 @@ public class MovieAdapter extends RealmRecyclerViewAdapter<Movie, MovieAdapter.V
     @Override
     public void onBindViewHolder(@NonNull MovieAdapter.ViewHolder pHolder, int position) {
         pHolder.populate(getItem(position));
+        if(position == getItemCount() - 1){
+            System.out.println("---------1---------");
+
+            count++;
+
+            System.out.println(count);
+
+        }
+
+
     }
 
 
@@ -82,4 +94,12 @@ public class MovieAdapter extends RealmRecyclerViewAdapter<Movie, MovieAdapter.V
             });
         }
     }
+
+
+    public void loadMoreMovies(int page){
+
+
+
+    }
+
 }

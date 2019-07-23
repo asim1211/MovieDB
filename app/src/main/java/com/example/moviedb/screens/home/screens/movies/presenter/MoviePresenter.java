@@ -72,7 +72,7 @@ public class MoviePresenter implements MoviesInterface.Presenter {
     }
 
     public void getMovies(String genreId) {
-        RetrofitClientInstance.getInstance().getMovies(genreId, new Callback<MovieJSONResult>() {
+        RetrofitClientInstance.getInstance().getMovies(genreId,"1", new Callback<MovieJSONResult>() {
             @Override
             public void onResponse(@NonNull Call<MovieJSONResult>call, @NonNull  Response<MovieJSONResult> response) {
                 if (response.body() != null) {
