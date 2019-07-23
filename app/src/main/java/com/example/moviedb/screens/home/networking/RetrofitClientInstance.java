@@ -25,14 +25,10 @@ public class RetrofitClientInstance implements APIMethodsInterface {
         this.apiMethodsInterface = getRetrofitInstance().create(APIMethodsInterface.class);
     }
 
-
-    Gson gson = new GsonBuilder().registerTypeAdapter(Movie.class,new MovieDeserializer()).create();
-
-
-    public Retrofit getRetrofitInstance() {
+    private Retrofit getRetrofitInstance() {
                 return new Retrofit.Builder()
                         .baseUrl(BASE_URL)
-                        .addConverterFactory(GsonConverterFactory.create(gson))
+                        .addConverterFactory(GsonConverterFactory.create(new GsonBuilder().registerTypeAdapter(Movie.class , new MovieDeserializer()).create()))
                         .build();
     }
 

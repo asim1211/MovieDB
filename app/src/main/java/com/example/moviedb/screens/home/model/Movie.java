@@ -14,23 +14,47 @@ import io.realm.annotations.PrimaryKey;
 public class Movie extends RealmObject {
 
     @PrimaryKey
+    @SerializedName("id")
+    @Expose
     private String id;
 
+    @SerializedName("title")
+    @Expose
     private String title;
 
+    @SerializedName("original_language")
+    @Expose
     private String original_language;
 
+    @SerializedName("overview")
+    @Expose
     private String overview;
 
+    @SerializedName("release_date")
+    @Expose
     private String release_date;
 
+    @SerializedName("poster_path")
+    @Expose
     private String poster_path;
 
-    public String genre_ids;
+    @SerializedName("genre_ids")
+    @Expose
+    public RealmList<String> genre_ids;
+
+
+    public String genre;
+
+
+
 
 
     public Movie() {
 
+    }
+
+    public String getGenre() {
+        return genre;
     }
 
 
@@ -62,14 +86,21 @@ public class Movie extends RealmObject {
         return id;
     }
 
-    public String getGenre_ids() {
+
+    public RealmList<String> getGenre_ids() {
         return genre_ids;
     }
 
 
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
 
 
-    public void setGenre_ids(String genre_ids) { this.genre_ids = genre_ids; }
+
+    public void setGenre_ids(RealmList<String> genre_ids) {
+        this.genre_ids = genre_ids;
+    }
 
     public void setId(String id) {
         this.id = id;

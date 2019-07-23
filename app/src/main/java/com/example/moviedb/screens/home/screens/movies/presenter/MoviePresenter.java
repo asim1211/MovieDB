@@ -15,6 +15,9 @@ import com.example.moviedb.screens.home.screens.movies.MoviesInterface;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import io.realm.OrderedCollectionChangeSet;
+import io.realm.OrderedRealmCollectionChangeListener;
 import io.realm.Realm;
 import io.realm.RealmList;
 import io.realm.RealmResults;
@@ -63,9 +66,9 @@ public class MoviePresenter implements MoviesInterface.Presenter {
             }
         });
 
-        System.out.println("------------1--------------");
-        System.out.println(Realm.getDefaultInstance().where(Genre.class).findFirst());
-        retrieveGenres(Realm.getDefaultInstance().where(Genre.class).findAllAsync());
+        RealmResults<Genre> genres = Realm.getDefaultInstance().where(Genre.class).findAllAsync();
+        genres.addChangeListener((genres1, changeSet) -> retrieveGenres(genres1));
+
     }
 
     public void getMovies(String genreId) {
@@ -82,7 +85,7 @@ public class MoviePresenter implements MoviesInterface.Presenter {
             }
         });
 
-        view.onMoviesReady(Realm.getDefaultInstance().where(Movie.class).like("genre_ids","*" + genreId + "*").findAllAsync());
+        view.onMoviesReady(Realm.getDefaultInstance().where(Movie.class).contains("genre", genreId).findAllAsync());
     }
 
     private void saveMovies(List<Movie> moviesList){
@@ -95,8 +98,6 @@ public class MoviePresenter implements MoviesInterface.Presenter {
         }
 
     }
-
-
 
 
     private void saveGenre(final ArrayList<Genre> genreList) {
@@ -113,7 +114,7 @@ public class MoviePresenter implements MoviesInterface.Presenter {
         this.genres = new ArrayList(genreList);
         new Handler(Looper.getMainLooper()).post(() -> {
             view.onGenresReady(genres);
-            getMovies(genres.get(0).getId());
+            getMovies("28");
         });
     }
 
