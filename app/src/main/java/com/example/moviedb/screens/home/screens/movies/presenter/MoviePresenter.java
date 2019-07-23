@@ -10,7 +10,6 @@ import com.example.moviedb.screens.home.model.Genre;
 import com.example.moviedb.screens.home.model.GenreJSONResults;
 import com.example.moviedb.screens.home.model.Movie;
 import com.example.moviedb.screens.home.model.MovieJSONResult;
-import com.example.moviedb.screens.home.model.StringRealm;
 import com.example.moviedb.screens.home.networking.RetrofitClientInstance;
 import com.example.moviedb.screens.home.screens.movies.MoviesInterface;
 
@@ -68,7 +67,9 @@ public class MoviePresenter implements MoviesInterface.Presenter {
         RetrofitClientInstance.getInstance().getMovies(genreId, new Callback<MovieJSONResult>() {
             @Override
             public void onResponse(@NonNull Call<MovieJSONResult>call, @NonNull  Response<MovieJSONResult> response) {
+                System.out.println("-----------1------------");
                 if (response.body() != null) {
+                    System.out.println("-----------2------------");
                     saveMovies(response.body().getMovieObjects());
                 }
             }
@@ -78,7 +79,8 @@ public class MoviePresenter implements MoviesInterface.Presenter {
             }
         });
 
-        view.onMoviesReady(Realm.getDefaultInstance().where(Movie.class).findAllAsync());
+        System.out.println("-----------3------------");
+        view.onMoviesReady(Realm.getDefaultInstance().where(Movie.class).like("genre_ids","*" + genreId + "*").findAllAsync());
     }
 
     private void saveMovies(List<Movie> moviesList){

@@ -1,9 +1,14 @@
 package com.example.moviedb.screens.home.networking;
 
 import com.example.moviedb.screens.home.model.GenreJSONResults;
+import com.example.moviedb.screens.home.model.Movie;
+import com.example.moviedb.screens.home.model.MovieDeserializer;
 import com.example.moviedb.screens.home.model.MovieJSONResult;
 import com.example.moviedb.screens.home.model.MovieDetails;
 import com.example.moviedb.screens.home.screens.movies.view.MainActivity;
+import com.google.gson.FieldNamingPolicy;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -20,10 +25,14 @@ public class RetrofitClientInstance implements APIMethodsInterface {
         this.apiMethodsInterface = getRetrofitInstance().create(APIMethodsInterface.class);
     }
 
+
+    Gson gson = new GsonBuilder().registerTypeAdapter(Movie.class,new MovieDeserializer()).create();
+
+
     public Retrofit getRetrofitInstance() {
                 return new Retrofit.Builder()
                         .baseUrl(BASE_URL)
-                        .addConverterFactory(GsonConverterFactory.create())
+                        .addConverterFactory(GsonConverterFactory.create(gson))
                         .build();
     }
 
