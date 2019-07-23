@@ -52,16 +52,18 @@ public class MainActivity extends AppCompatActivity implements MoviesInterface.V
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
+
+    @Override
+    public void onMoviesReady(RealmResults<Movie> moviesList) {
+        recyclerView.setAdapter(new MovieAdapter(this, moviesList,this));
+    }
+
     @Override
     public void onGenresReady(List<Genre> genres) {
         SpinnerAdapter dataAdapter = new SpinnerAdapter(this, genres);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         spinner1.setAdapter(dataAdapter);
-    }
 
-    @Override
-    public void onMoviesReady(RealmResults<Movie> moviesList) {
-        recyclerView.setAdapter(new MovieAdapter(this, moviesList,this));
     }
 
     @Override

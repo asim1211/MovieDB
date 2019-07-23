@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 import io.realm.Realm;
 import io.realm.RealmList;
+import io.realm.RealmResults;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -61,15 +62,17 @@ public class MoviePresenter implements MoviesInterface.Presenter {
                 throwable.printStackTrace();
             }
         });
+
+        System.out.println("------------1--------------");
+        System.out.println(Realm.getDefaultInstance().where(Genre.class).findFirst());
+        retrieveGenres(Realm.getDefaultInstance().where(Genre.class).findAllAsync());
     }
 
     public void getMovies(String genreId) {
         RetrofitClientInstance.getInstance().getMovies(genreId, new Callback<MovieJSONResult>() {
             @Override
             public void onResponse(@NonNull Call<MovieJSONResult>call, @NonNull  Response<MovieJSONResult> response) {
-                System.out.println("-----------1------------");
                 if (response.body() != null) {
-                    System.out.println("-----------2------------");
                     saveMovies(response.body().getMovieObjects());
                 }
             }
@@ -79,7 +82,6 @@ public class MoviePresenter implements MoviesInterface.Presenter {
             }
         });
 
-        System.out.println("-----------3------------");
         view.onMoviesReady(Realm.getDefaultInstance().where(Movie.class).like("genre_ids","*" + genreId + "*").findAllAsync());
     }
 
@@ -103,36 +105,20 @@ public class MoviePresenter implements MoviesInterface.Presenter {
                 RealmList<Genre> realmList = new RealmList<>();
                 realmList.addAll(genreList);
                 realm1.copyToRealmOrUpdate(realmList);
-
-                retrieveGenres(genreList);
             });
         }
-
     }
 
-    private void retrieveGenres(ArrayList<Genre> genreList) {
-        this.genres = genreList;
-        new Handler(Looper.getMainLooper()).post(new Runnable() {
-            @Override
-            public void run() {
-                view.onGenresReady(genreList);
-                getMovies(genres.get(0).getId());
-            }
+    private void retrieveGenres(RealmResults<Genre> genreList) {
+        this.genres = new ArrayList(genreList);
+        new Handler(Looper.getMainLooper()).post(() -> {
+            view.onGenresReady(genres);
+            getMovies(genres.get(0).getId());
         });
     }
 
 
-//        public List<Movie> filterMovies(List<Movie> moviesList, String genreID){
-//
-//        List<Movie> filteredMovies = new ArrayList<Movie>();
-//        for( Movie m : moviesList) {
-//            if (m.getGenre_ids().contains(genreID))
-//                filteredMovies.add(m);
-//
-//        }
-//
-//        return filteredMovies;
-//    }
+
 
 
 
