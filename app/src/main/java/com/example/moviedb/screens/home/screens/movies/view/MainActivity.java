@@ -39,11 +39,7 @@ public class MainActivity extends AppCompatActivity implements MoviesInterface.V
 
     LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
     public int pageCount = 1;
-
     private boolean setAdapter = true;
-
-
-
 
 
     @Override
@@ -70,7 +66,7 @@ public class MainActivity extends AppCompatActivity implements MoviesInterface.V
 
                 if (!recyclerView.canScrollVertically(1) && newState==RecyclerView.SCROLL_STATE_IDLE) {
 
-                    
+                    pageCount = (int) Math.ceil(mLayoutManager.getItemCount()/20);
                     pageCount++;
                     presenter.getMovies(presenter.getSelectedGenre(spinner1.getSelectedItemPosition()).getId(), pageCount);
 
@@ -104,6 +100,7 @@ public class MainActivity extends AppCompatActivity implements MoviesInterface.V
     public void onItemSelected(AdapterView<?> parent, View view, int pos, long l) {
         ((TextView) parent.getChildAt(0)).setTextColor(getResources().getColor(R.color.gray));
         setAdapter = true;
+        pageCount = 1;
         presenter.getMovies(presenter.getSelectedGenre(pos).getId(), pageCount);
     }
 
