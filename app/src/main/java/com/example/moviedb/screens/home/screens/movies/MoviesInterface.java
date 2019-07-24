@@ -27,7 +27,7 @@ public interface MoviesInterface {
         interface Presenter {
                 void init();
                 RecyclerView.OnScrollListener getScrollListener(Spinner spinner, LinearLayoutManager linearLayoutManager);
-                void initPageCount();
+                void resetVariables();
                 Genre getSelectedGenre(int position);
                 void getMovies(String genreId, int page);
         }

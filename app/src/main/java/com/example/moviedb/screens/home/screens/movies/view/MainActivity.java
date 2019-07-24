@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity implements MoviesInterface.V
     @BindView(R.id.listings_view) RecyclerView recyclerView;
 
     private MoviesInterface.Presenter presenter;
-    private boolean setAdapter = true;
+
 
 
     @Override
@@ -59,8 +59,6 @@ public class MainActivity extends AppCompatActivity implements MoviesInterface.V
     @Override
     public void onMoviesReady(RealmResults<Movie> moviesList) {
             recyclerView.setAdapter(new MovieAdapter(this, moviesList,this));
-            //setAdapter = false;
-
     }
 
     @Override
@@ -79,8 +77,7 @@ public class MainActivity extends AppCompatActivity implements MoviesInterface.V
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int pos, long l) {
         ((TextView) parent.getChildAt(0)).setTextColor(getResources().getColor(R.color.gray));
-        setAdapter = true;
-        presenter.initPageCount();
+        presenter.resetVariables();
         presenter.getMovies(presenter.getSelectedGenre(pos).getId(), 1);
     }
 

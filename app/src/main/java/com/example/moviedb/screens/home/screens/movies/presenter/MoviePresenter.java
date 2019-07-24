@@ -34,6 +34,7 @@ public class MoviePresenter implements MoviesInterface.Presenter {
 
     private ArrayList<Genre> genres;
     private int pageCount;
+    private boolean setAdapter;
 
     public MoviePresenter(Activity activity, MoviesInterface.View view) {
         this.activity = activity;
@@ -43,6 +44,7 @@ public class MoviePresenter implements MoviesInterface.Presenter {
     @Override
     public void init() {
         this.pageCount = 1;
+        this.setAdapter = true;
 
         view.init();
 
@@ -72,9 +74,11 @@ public class MoviePresenter implements MoviesInterface.Presenter {
     }
 
     @Override
-    public void initPageCount() {
+    public void resetVariables() {
         this.pageCount = 1;
+        this.setAdapter = true;
     }
+
 
     private void getGenre() {
         RetrofitClientInstance.getInstance().getGenres(new Callback<GenreJSONResults>() {
@@ -82,7 +86,6 @@ public class MoviePresenter implements MoviesInterface.Presenter {
             public void onResponse(@NonNull Call<GenreJSONResults> genreCall, @NonNull Response<GenreJSONResults> response) {
                 if (response.body() != null && response.body().getGenres().size() > 0) {
                     saveGenre(response.body().getGenres());
-                    System.out.println(response.body().getGenres().get(0));
                 }
             }
             @Override
@@ -111,7 +114,12 @@ public class MoviePresenter implements MoviesInterface.Presenter {
             }
         });
 
-        view.onMoviesReady(Realm.getDefaultInstance().where(Movie.class).contains("genre", genreId).findAllAsync());
+        if(setAdapter) {
+            view.onMoviesReady(Realm.getDefaultInstance().where(Movie.class).contains("genre", genreId).findAllAsync());
+        }else {
+            setAdapter = false;
+            view.onScrollUpdateMovies(Realm.getDefaultInstance().where(Movie.class).contains("genre", genreId).findAllAsync());
+        }
     }
 
     private void saveMovies(List<Movie> moviesList){
