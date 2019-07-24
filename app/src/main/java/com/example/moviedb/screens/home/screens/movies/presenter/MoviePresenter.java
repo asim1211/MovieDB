@@ -3,8 +3,11 @@ package com.example.moviedb.screens.home.screens.movies.presenter;
 import android.app.Activity;
 import android.os.Handler;
 import android.os.Looper;
+import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.moviedb.screens.home.model.Genre;
 import com.example.moviedb.screens.home.model.GenreJSONResults;
@@ -16,8 +19,6 @@ import com.example.moviedb.screens.home.screens.movies.MoviesInterface;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.realm.OrderedCollectionChangeSet;
-import io.realm.OrderedRealmCollectionChangeListener;
 import io.realm.Realm;
 import io.realm.RealmList;
 import io.realm.RealmResults;
@@ -32,7 +33,7 @@ public class MoviePresenter implements MoviesInterface.Presenter {
     private MoviesInterface.View view;
 
     private ArrayList<Genre> genres;
-    public int pageCount = 1;
+    private int pageCount;
 
     public MoviePresenter(Activity activity, MoviesInterface.View view) {
         this.activity = activity;
@@ -41,6 +42,8 @@ public class MoviePresenter implements MoviesInterface.Presenter {
 
     @Override
     public void init() {
+        this.pageCount = 1;
+
         view.init();
 
         getGenre();
@@ -51,10 +54,29 @@ public class MoviePresenter implements MoviesInterface.Presenter {
         return genres.get(position);
     }
 
+    @Override
+    public RecyclerView.OnScrollListener getScrollListener(Spinner spinner, LinearLayoutManager linearLayoutManager) {
+        return new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
 
+                if (!recyclerView.canScrollVertically(1) && newState==RecyclerView.SCROLL_STATE_IDLE) {
+                    pageCount = (int) Math.ceil(linearLayoutManager.getItemCount()/20);
+                    pageCount++;
+                    getMovies(getSelectedGenre(spinner.getSelectedItemPosition()).getId(), pageCount);
 
-    public void getGenre() {
+                }
+            }
+        };
+    }
 
+    @Override
+    public void initPageCount() {
+        this.pageCount = 1;
+    }
+
+    private void getGenre() {
         RetrofitClientInstance.getInstance().getGenres(new Callback<GenreJSONResults>() {
             @Override
             public void onResponse(@NonNull Call<GenreJSONResults> genreCall, @NonNull Response<GenreJSONResults> response) {
@@ -74,6 +96,7 @@ public class MoviePresenter implements MoviesInterface.Presenter {
 
     }
 
+    @Override
     public void getMovies(String genreId, int page) {
         RetrofitClientInstance.getInstance().getMovies(genreId, page, new Callback<MovieJSONResult>() {
             @Override
@@ -114,16 +137,14 @@ public class MoviePresenter implements MoviesInterface.Presenter {
     }
 
     private void retrieveGenres(RealmResults<Genre> genreList) {
-        this.genres = new ArrayList(genreList);
-        new Handler(Looper.getMainLooper()).post(() -> {
-            view.onGenresReady(genres);
-            getMovies("28", pageCount);
-        });
+        if (genreList.size() > 0) {
+            this.genres = new ArrayList(genreList);
+            new Handler(Looper.getMainLooper()).post(() -> {
+                view.onGenresReady(genres);
+                getMovies(genres.get(0).getId(), 1);
+            });
+        }
     }
-
-
-
-
 
 
 

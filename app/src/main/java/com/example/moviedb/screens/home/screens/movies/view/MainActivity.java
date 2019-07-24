@@ -9,7 +9,6 @@ import java.util.List;
 import android.content.Intent;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Spinner;
@@ -30,15 +29,10 @@ import io.realm.RealmResults;
 
 public class MainActivity extends AppCompatActivity implements MoviesInterface.View, AdapterView.OnItemSelectedListener {
 
-    public static String key = "6a454f1310829848d7744fcda5a5cb30";
-    private static final String BUNDLE_RECYCLER_LAYOUT = "MainActivity.recycler.layout";
-
     @BindView(R.id.spinner1) Spinner spinner1;
     @BindView(R.id.listings_view) RecyclerView recyclerView;
-    private MoviePresenter presenter;
 
-    LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
-    public int pageCount = 1;
+    private MoviesInterface.Presenter presenter;
     private boolean setAdapter = true;
 
 
@@ -50,42 +44,28 @@ public class MainActivity extends AppCompatActivity implements MoviesInterface.V
 
         presenter = new MoviePresenter(this, this);
         presenter.init();
-
-
     }
 
     @Override
     public void init() {
         spinner1.setOnItemSelectedListener(this);
+
+        LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(mLayoutManager);
-
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-
-                if (!recyclerView.canScrollVertically(1) && newState==RecyclerView.SCROLL_STATE_IDLE) {
-
-                    pageCount = (int) Math.ceil(mLayoutManager.getItemCount()/20);
-                    pageCount++;
-                    presenter.getMovies(presenter.getSelectedGenre(spinner1.getSelectedItemPosition()).getId(), pageCount);
-
-                }
-            }
-        });
+        recyclerView.addOnScrollListener(presenter.getScrollListener(spinner1, mLayoutManager));
     }
 
 
     @Override
     public void onMoviesReady(RealmResults<Movie> moviesList) {
+            recyclerView.setAdapter(new MovieAdapter(this, moviesList,this));
+            //setAdapter = false;
 
-        MovieAdapter movieAdapter = new MovieAdapter(this, moviesList,this);
-        if(setAdapter) {
-            recyclerView.setAdapter(movieAdapter);
-            setAdapter = false;
-        }else {
-            movieAdapter.notifyDataSetChanged();
-        }
+    }
+
+    @Override
+    public void onScrollUpdateMovies(RealmResults<Movie> moviesList) {
+        new MovieAdapter(this, moviesList,this).notifyDataSetChanged();
     }
 
     @Override
@@ -100,8 +80,8 @@ public class MainActivity extends AppCompatActivity implements MoviesInterface.V
     public void onItemSelected(AdapterView<?> parent, View view, int pos, long l) {
         ((TextView) parent.getChildAt(0)).setTextColor(getResources().getColor(R.color.gray));
         setAdapter = true;
-        pageCount = 1;
-        presenter.getMovies(presenter.getSelectedGenre(pos).getId(), pageCount);
+        presenter.initPageCount();
+        presenter.getMovies(presenter.getSelectedGenre(pos).getId(), 1);
     }
 
     @Override
@@ -111,11 +91,6 @@ public class MainActivity extends AppCompatActivity implements MoviesInterface.V
     public void onIntent(Intent intent) {
         startActivity(intent);
     }
-
-
-
-
-
 }
 
 
