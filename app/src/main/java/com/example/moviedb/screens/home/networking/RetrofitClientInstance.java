@@ -32,7 +32,7 @@ public class RetrofitClientInstance implements APIMethodsInterface {
                         .build();
     }
 
-    public void getMovies(String genre, String page, Callback<MovieJSONResult> resultCallback) {
+    public void getMovies(String genre, int page, Callback<MovieJSONResult> resultCallback) {
         apiMethodsInterface.getMovies(MainActivity.key, genre, "popularity.desc", page).enqueue(resultCallback);
     }
 
@@ -52,7 +52,7 @@ public class RetrofitClientInstance implements APIMethodsInterface {
     }
 
     @Override
-    public Call<MovieJSONResult> getMovies(String key, String geners, String popularity, String page) {
+    public Call<MovieJSONResult> getMovies(String key, String geners, String popularity, int page) {
         return apiMethodsInterface.getMovies(key, geners, popularity, page);
     }
 

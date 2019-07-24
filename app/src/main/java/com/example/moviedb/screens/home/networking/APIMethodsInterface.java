@@ -13,7 +13,7 @@ import retrofit2.http.Query;
 public interface APIMethodsInterface {
 
     @GET("discover/movie")
-    Call<MovieJSONResult> getMovies(@Query("api_key") String key, @Query("with_genres") String geners, @Query("sort_by") String popularity, @Query("page") String page);
+    Call<MovieJSONResult> getMovies(@Query("api_key") String key, @Query("with_genres") String geners, @Query("sort_by") String popularity, @Query("page") int page);
 
     @GET("genre/movie/list")
     Call<GenreJSONResults> getGenre(@Query("api_key") String key);

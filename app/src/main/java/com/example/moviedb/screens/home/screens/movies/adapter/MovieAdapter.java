@@ -28,7 +28,7 @@ public class MovieAdapter extends RealmRecyclerViewAdapter<Movie, MovieAdapter.V
     private Context context;
 
     private MoviesInterface.View movieView;
-    private int count = 0;
+
 
 
     public MovieAdapter(Context context, RealmResults<Movie> movieObjects, MoviesInterface.View movieView){
@@ -45,16 +45,8 @@ public class MovieAdapter extends RealmRecyclerViewAdapter<Movie, MovieAdapter.V
 
     @Override
     public void onBindViewHolder(@NonNull MovieAdapter.ViewHolder pHolder, int position) {
+
         pHolder.populate(getItem(position));
-        if(position == getItemCount() - 1){
-            System.out.println("---------1---------");
-
-            count++;
-
-            System.out.println(count);
-
-        }
-
 
     }
 
@@ -96,10 +88,5 @@ public class MovieAdapter extends RealmRecyclerViewAdapter<Movie, MovieAdapter.V
     }
 
 
-    public void loadMoreMovies(int page){
-
-
-
-    }
 
 }

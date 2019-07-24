@@ -29,9 +29,10 @@ public class MoviePresenter implements MoviesInterface.Presenter {
 
 
     private Activity activity;
-    private  MoviesInterface.View view;
+    private MoviesInterface.View view;
 
     private ArrayList<Genre> genres;
+    public int pageCount = 1;
 
     public MoviePresenter(Activity activity, MoviesInterface.View view) {
         this.activity = activity;
@@ -53,11 +54,13 @@ public class MoviePresenter implements MoviesInterface.Presenter {
 
 
     public void getGenre() {
+
         RetrofitClientInstance.getInstance().getGenres(new Callback<GenreJSONResults>() {
             @Override
             public void onResponse(@NonNull Call<GenreJSONResults> genreCall, @NonNull Response<GenreJSONResults> response) {
                 if (response.body() != null && response.body().getGenres().size() > 0) {
                     saveGenre(response.body().getGenres());
+                    System.out.println(response.body().getGenres().get(0));
                 }
             }
             @Override
@@ -71,8 +74,8 @@ public class MoviePresenter implements MoviesInterface.Presenter {
 
     }
 
-    public void getMovies(String genreId) {
-        RetrofitClientInstance.getInstance().getMovies(genreId,"1", new Callback<MovieJSONResult>() {
+    public void getMovies(String genreId, int page) {
+        RetrofitClientInstance.getInstance().getMovies(genreId, page, new Callback<MovieJSONResult>() {
             @Override
             public void onResponse(@NonNull Call<MovieJSONResult>call, @NonNull  Response<MovieJSONResult> response) {
                 if (response.body() != null) {
@@ -114,7 +117,7 @@ public class MoviePresenter implements MoviesInterface.Presenter {
         this.genres = new ArrayList(genreList);
         new Handler(Looper.getMainLooper()).post(() -> {
             view.onGenresReady(genres);
-            getMovies("28");
+            getMovies("28", pageCount);
         });
     }
 

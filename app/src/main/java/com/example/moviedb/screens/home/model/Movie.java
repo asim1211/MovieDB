@@ -46,9 +46,6 @@ public class Movie extends RealmObject {
     public String genre;
 
 
-
-
-
     public Movie() {
 
     }
