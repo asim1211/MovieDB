@@ -47,7 +47,6 @@ public class MoviePresenter implements MoviesInterface.Presenter {
         this.setAdapter = true;
 
         view.init();
-
         getGenre();
     }
 
@@ -115,11 +114,11 @@ public class MoviePresenter implements MoviesInterface.Presenter {
         });
 
         if(setAdapter) {
-            view.onMoviesReady(Realm.getDefaultInstance().where(Movie.class).contains("genre", genreId).findAllAsync());
-        }else {
             setAdapter = false;
+            view.onMoviesReady(Realm.getDefaultInstance().where(Movie.class).contains("genre", genreId).findAllAsync());
+        }else
             view.onScrollUpdateMovies(Realm.getDefaultInstance().where(Movie.class).contains("genre", genreId).findAllAsync());
-        }
+
     }
 
     private void saveMovies(List<Movie> moviesList){
@@ -153,7 +152,6 @@ public class MoviePresenter implements MoviesInterface.Presenter {
             });
         }
     }
-
-
+    
 
 }
