@@ -34,8 +34,6 @@ public class MainActivity extends AppCompatActivity implements MoviesInterface.V
 
     private MoviesInterface.Presenter presenter;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,12 +56,12 @@ public class MainActivity extends AppCompatActivity implements MoviesInterface.V
 
     @Override
     public void onMoviesReady(RealmResults<Movie> moviesList) {
-            recyclerView.setAdapter(new MovieAdapter(this, moviesList,this));
+        recyclerView.setAdapter(new MovieAdapter(this, moviesList,this));
     }
 
     @Override
     public void onScrollUpdateMovies(RealmResults<Movie> moviesList) {
-        new MovieAdapter(this, moviesList,this).notifyDataSetChanged();
+        ((MovieAdapter)recyclerView.getAdapter()).updateData(moviesList);
     }
 
     @Override
@@ -78,7 +76,10 @@ public class MainActivity extends AppCompatActivity implements MoviesInterface.V
     public void onItemSelected(AdapterView<?> parent, View view, int pos, long l) {
         ((TextView) parent.getChildAt(0)).setTextColor(getResources().getColor(R.color.gray));
         presenter.resetVariables();
-        presenter.getMovies(presenter.getSelectedGenre(spinner1).getId(), 1);
+
+        String genreId = presenter.getSelectedGenre(spinner1.getSelectedItemPosition()).getId();
+        presenter.updateResultCondition(genreId);
+        presenter.getMovies(genreId, 1);
     }
 
     @Override

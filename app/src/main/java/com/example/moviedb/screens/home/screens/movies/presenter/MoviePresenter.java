@@ -46,27 +46,27 @@ public class MoviePresenter implements MoviesInterface.Presenter {
         this.pageCount = 1;
         this.setAdapter = true;
 
-        getGenre();
         view.init();
+
+        getGenre();
     }
 
     @Override
-    public Genre getSelectedGenre(Spinner spinner) {
-        return genres.get(spinner.getSelectedItemPosition());
+    public Genre getSelectedGenre(int position) {
+        return genres.get(position);
     }
 
     @Override
     public RecyclerView.OnScrollListener getScrollListener(Spinner spinner, LinearLayoutManager linearLayoutManager) {
         return new RecyclerView.OnScrollListener() {
             @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
 
-                if (!recyclerView.canScrollVertically(1) && newState==RecyclerView.SCROLL_STATE_IDLE) {
-                    pageCount = (int) Math.ceil(linearLayoutManager.getItemCount()/20);
+                if (!recyclerView.canScrollVertically(1) && newState == RecyclerView.SCROLL_STATE_IDLE) {
+                    pageCount = (int) Math.ceil(linearLayoutManager.getItemCount() / 20);
                     pageCount++;
-                    getMovies(getSelectedGenre(spinner).getId(), pageCount);
-
+                    getMovies(getSelectedGenre(spinner.getSelectedItemPosition()).getId(), pageCount);
                 }
             }
         };
@@ -75,27 +75,6 @@ public class MoviePresenter implements MoviesInterface.Presenter {
     @Override
     public void resetVariables() {
         this.pageCount = 1;
-        this.setAdapter = true;
-    }
-
-
-    private void getGenre() {
-        RetrofitClientInstance.getInstance().getGenres(new Callback<GenreJSONResults>() {
-            @Override
-            public void onResponse(@NonNull Call<GenreJSONResults> genreCall, @NonNull Response<GenreJSONResults> response) {
-                if (response.body() != null && response.body().getGenres().size() > 0) {
-                    saveGenre(response.body().getGenres());
-                }
-            }
-            @Override
-            public void onFailure(@NonNull Call<GenreJSONResults> genreCall, @NonNull Throwable throwable) {
-                throwable.printStackTrace();
-            }
-        });
-
-        RealmResults<Genre> genres = Realm.getDefaultInstance().where(Genre.class).findAllAsync();
-        genres.addChangeListener((genres1, changeSet) -> retrieveGenres(genres1));
-
     }
 
     @Override
@@ -103,56 +82,71 @@ public class MoviePresenter implements MoviesInterface.Presenter {
         RetrofitClientInstance.getInstance().getMovies(genreId, page, new Callback<MovieJSONResult>() {
             @Override
             public void onResponse(@NonNull Call<MovieJSONResult>call, @NonNull  Response<MovieJSONResult> response) {
-                if (response.body() != null) {
+                if (response.body() != null)
                     saveMovies(response.body().getMovieObjects());
-                }
             }
+
             @Override
             public void onFailure(@NonNull Call<MovieJSONResult> call, @NonNull Throwable throwable) {
                 throwable.printStackTrace();
             }
         });
+    }
 
-        if(setAdapter) {
+    @Override
+    public void updateResultCondition(String genreId) {
+        if (setAdapter) {
             setAdapter = false;
-            view.onMoviesReady(Realm.getDefaultInstance().where(Movie.class).contains("genre", genreId).findAllAsync());
-        }else {
-            view.onScrollUpdateMovies(Realm.getDefaultInstance().where(Movie.class).contains("genre", genreId).findAllAsync());
+            view.onMoviesReady(getMoviesResult(genreId));
         }
+        else
+            view.onScrollUpdateMovies(getMoviesResult(genreId));
+    }
 
+    private void getGenre() {
+        RealmResults<Genre> genres = Realm.getDefaultInstance().where(Genre.class).findAllAsync();
+        genres.addChangeListener((genres1, changeSet) -> retrieveGenres(genres1));
+
+        RetrofitClientInstance.getInstance().getGenres(new Callback<GenreJSONResults>() {
+            @Override
+            public void onResponse(@NonNull Call<GenreJSONResults> genreCall, @NonNull Response<GenreJSONResults> response) {
+                if (response.body() != null && response.body().getGenres().size() > 0)
+                    saveGenres(response.body().getGenres());
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<GenreJSONResults> genreCall, @NonNull Throwable throwable) {
+                throwable.printStackTrace();
+            }
+        });
+    }
+
+    private RealmResults<Movie> getMoviesResult(String genreId) {
+        return Realm.getDefaultInstance().where(Movie.class).contains("genre", genreId).findAllAsync();
     }
 
     private void saveMovies(List<Movie> moviesList){
-        try(Realm realm = Realm.getDefaultInstance()) {
-            realm.executeTransactionAsync(realm1 -> {
-                RealmList<Movie> realmList = new RealmList<>();
-                realmList.addAll(moviesList);
-                realm1.copyToRealmOrUpdate(realmList);
-            });
-        }
-
+        Realm.getDefaultInstance().executeTransactionAsync(realm1 -> {
+            realm1.copyToRealmOrUpdate(moviesList);
+        });
     }
 
-
-    private void saveGenre(final ArrayList<Genre> genreList) {
-        try (Realm realm = Realm.getDefaultInstance()) {
-            realm.executeTransactionAsync(realm1 -> {
-                RealmList<Genre> realmList = new RealmList<>();
-                realmList.addAll(genreList);
-                realm1.copyToRealmOrUpdate(realmList);
-            });
-        }
+    private void saveGenres(final ArrayList<Genre> genreList) {
+        Realm.getDefaultInstance().executeTransactionAsync(realm1 -> {
+            realm1.copyToRealmOrUpdate(genreList);
+        });
     }
 
     private void retrieveGenres(RealmResults<Genre> genreList) {
         if (genreList.size() > 0) {
+            String genreId = genreList.get(0).getId();
+
             this.genres = new ArrayList(genreList);
             new Handler(Looper.getMainLooper()).post(() -> {
                 view.onGenresReady(genres);
-                getMovies(genres.get(0).getId(), 1);
+                updateResultCondition(genreId);
+                getMovies(genreId, 1);
             });
         }
     }
-    
-
 }
