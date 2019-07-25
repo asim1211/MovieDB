@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity implements MoviesInterface.V
     public void onItemSelected(AdapterView<?> parent, View view, int pos, long l) {
         ((TextView) parent.getChildAt(0)).setTextColor(getResources().getColor(R.color.gray));
         presenter.resetVariables();
-        presenter.getMovies(presenter.getSelectedGenre(pos).getId(), 1);
+        presenter.getMovies(presenter.getSelectedGenre(spinner1).getId(), 1);
     }
 
     @Override

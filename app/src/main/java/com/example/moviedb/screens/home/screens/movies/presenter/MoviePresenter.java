@@ -46,13 +46,13 @@ public class MoviePresenter implements MoviesInterface.Presenter {
         this.pageCount = 1;
         this.setAdapter = true;
 
-        view.init();
         getGenre();
+        view.init();
     }
 
     @Override
-    public Genre getSelectedGenre(int position) {
-        return genres.get(position);
+    public Genre getSelectedGenre(Spinner spinner) {
+        return genres.get(spinner.getSelectedItemPosition());
     }
 
     @Override
@@ -65,7 +65,7 @@ public class MoviePresenter implements MoviesInterface.Presenter {
                 if (!recyclerView.canScrollVertically(1) && newState==RecyclerView.SCROLL_STATE_IDLE) {
                     pageCount = (int) Math.ceil(linearLayoutManager.getItemCount()/20);
                     pageCount++;
-                    getMovies(getSelectedGenre(spinner.getSelectedItemPosition()).getId(), pageCount);
+                    getMovies(getSelectedGenre(spinner).getId(), pageCount);
 
                 }
             }
@@ -116,8 +116,9 @@ public class MoviePresenter implements MoviesInterface.Presenter {
         if(setAdapter) {
             setAdapter = false;
             view.onMoviesReady(Realm.getDefaultInstance().where(Movie.class).contains("genre", genreId).findAllAsync());
-        }else
+        }else {
             view.onScrollUpdateMovies(Realm.getDefaultInstance().where(Movie.class).contains("genre", genreId).findAllAsync());
+        }
 
     }
 
