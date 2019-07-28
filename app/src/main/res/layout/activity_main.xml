@@ -9,9 +9,9 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/horizontalList"
         android:layout_width="match_parent"
-        android:layout_height="25dp"
-        android:textColor="@color/articlecolor"
-        android:spinnerMode="dialog"/>
+        android:layout_height="wrap_content"
+        android:background="@color/gray"/>
+
 
 
     <androidx.recyclerview.widget.RecyclerView

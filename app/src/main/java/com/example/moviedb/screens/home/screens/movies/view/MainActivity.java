@@ -29,8 +29,8 @@ import io.realm.RealmResults;
 
 public class MainActivity extends AppCompatActivity implements MoviesInterface.View, AdapterView.OnItemSelectedListener {
 
-   // @BindView(R.id.spinner1) Spinner spinner1;
     @BindView(R.id.listings_view) RecyclerView moviesRecyclerView;
+    @BindView(R.id.horizontalList) RecyclerView genresRecyclerView;
 
     private MoviesInterface.Presenter presenter;
 
@@ -51,8 +51,11 @@ public class MainActivity extends AppCompatActivity implements MoviesInterface.V
         spinner1.setOnItemSelectedListener(this);
 
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
-//        LinearLayoutManager mLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         moviesRecyclerView.setLayoutManager(mLayoutManager);
+
+        LinearLayoutManager genreLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        genresRecyclerView.setLayoutManager(genreLayoutManager);
+
         //moviesRecyclerView.addOnScrollListener(presenter.getScrollListener(spinner1, mLayoutManager));
     }
 
@@ -70,8 +73,8 @@ public class MainActivity extends AppCompatActivity implements MoviesInterface.V
     @Override
     public void onGenresReady(List<Genre> genres) {
         HorizontalAdapter dataAdapter = new HorizontalAdapter(this, genres);
-        dataAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
-        spinner1.setAdapter(dataAdapter);
+        //dataAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+        genresRecyclerView.setAdapter(dataAdapter);
 
     }
 
@@ -80,9 +83,9 @@ public class MainActivity extends AppCompatActivity implements MoviesInterface.V
         ((TextView) parent.getChildAt(0)).setTextColor(getResources().getColor(R.color.gray));
         presenter.resetVariables();
 
-        String genreId = presenter.getSelectedGenre(spinner1.getSelectedItemPosition()).getId();
-        presenter.updateResultCondition(genreId);
-        presenter.getMovies(genreId, 1);
+        //String genreId = presenter.getSelectedGenre(spinner1.getSelectedItemPosition()).getId();
+//        presenter.updateResultCondition(genreId);
+//        presenter.getMovies(genreId, 1);
     }
 
     @Override
