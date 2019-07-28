@@ -70,19 +70,22 @@ public class MovieDetailsPresenter implements MovieDetailsInterface.Presenter {
 
 
     private void retrieveMovieDetails(RealmResults<MovieDetails> movieDetailsList){
-        
+
         if (movieDetailsList.size() > 0) {
-            MovieDetails movieDetails = movieDetailsList.get(0);
 
             new Handler(Looper.getMainLooper()).post(() -> {
-                if (movieDetails != null && activity != null && !activity.isDestroyed()) {
-                    view.onMovieReady(movieDetails);
-                    view.onBackDropReady(getDrawableRequest(movieDetails.getBackdrop_path()));
-                    view.onPosterReady(getDrawableRequest(movieDetails.getPoster_path()));
-                }
+                showMovieDetails(movieDetailsList.get(0));
             });
         }
 
+    }
+
+    private void showMovieDetails(MovieDetails movieDetails){
+        if (movieDetails != null && activity != null && !activity.isDestroyed()) {
+            view.onMovieReady(movieDetails);
+            view.onBackDropReady(getDrawableRequest(movieDetails.getBackdrop_path()));
+            view.onPosterReady(getDrawableRequest(movieDetails.getPoster_path()));
+        }
     }
 
 
