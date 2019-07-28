@@ -6,11 +6,10 @@
     android:layout_height="match_parent">
 
 
-    <Spinner
-        android:id="@+id/spinner1"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/horizontalList"
         android:layout_width="match_parent"
         android:layout_height="25dp"
-        android:background="@drawable/spinner_bg"
         android:textColor="@color/articlecolor"
         android:spinnerMode="dialog"/>
 

@@ -16,7 +16,7 @@ import android.widget.TextView;
 
 import com.example.moviedb.screens.home.model.Genre;
 import com.example.moviedb.screens.home.model.Movie;
-import com.example.moviedb.screens.home.screens.movies.adapter.SpinnerAdapter;
+import com.example.moviedb.screens.home.screens.movies.adapter.HorizontalAdapter;
 import com.example.moviedb.screens.home.screens.movies.adapter.MovieAdapter;
 import com.example.moviedb.screens.home.screens.movies.presenter.MoviePresenter;
 import com.example.moviedb.R;
@@ -29,8 +29,8 @@ import io.realm.RealmResults;
 
 public class MainActivity extends AppCompatActivity implements MoviesInterface.View, AdapterView.OnItemSelectedListener {
 
-    @BindView(R.id.spinner1) Spinner spinner1;
-    @BindView(R.id.listings_view) RecyclerView recyclerView;
+   // @BindView(R.id.spinner1) Spinner spinner1;
+    @BindView(R.id.listings_view) RecyclerView moviesRecyclerView;
 
     private MoviesInterface.Presenter presenter;
 
@@ -44,29 +44,32 @@ public class MainActivity extends AppCompatActivity implements MoviesInterface.V
         presenter.init();
     }
 
+
+
     @Override
     public void init() {
         spinner1.setOnItemSelectedListener(this);
 
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(mLayoutManager);
-        recyclerView.addOnScrollListener(presenter.getScrollListener(spinner1, mLayoutManager));
+//        LinearLayoutManager mLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        moviesRecyclerView.setLayoutManager(mLayoutManager);
+        //moviesRecyclerView.addOnScrollListener(presenter.getScrollListener(spinner1, mLayoutManager));
     }
 
 
     @Override
     public void onMoviesReady(RealmResults<Movie> moviesList) {
-        recyclerView.setAdapter(new MovieAdapter(this, moviesList,this));
+        moviesRecyclerView.setAdapter(new MovieAdapter(this, moviesList,this));
     }
 
     @Override
     public void onScrollUpdateMovies(RealmResults<Movie> moviesList) {
-        ((MovieAdapter)recyclerView.getAdapter()).updateData(moviesList);
+        ((MovieAdapter) moviesRecyclerView.getAdapter()).updateData(moviesList);
     }
 
     @Override
     public void onGenresReady(List<Genre> genres) {
-        SpinnerAdapter dataAdapter = new SpinnerAdapter(this, genres);
+        HorizontalAdapter dataAdapter = new HorizontalAdapter(this, genres);
         dataAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
         spinner1.setAdapter(dataAdapter);
 
