@@ -3,9 +3,19 @@ package com.example.moviedb.screens.home.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class MovieDetails {
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 
-    private MovieDetails movieDetails;
+public class MovieDetails extends RealmObject {
+
+
+
+
+
+    @PrimaryKey
+    @SerializedName("id")
+    @Expose
+    private String id;
 
     @SerializedName("title")
     @Expose
@@ -49,6 +59,8 @@ public class MovieDetails {
         this.vote_average = vote_average;
     }
 
+    public MovieDetails(){}
+
     public String getPoster_path() { return poster_path; }
 
     public String getBackdrop_path() { return backdrop_path; }
@@ -63,4 +75,5 @@ public class MovieDetails {
 
     public String getVote_average() { return vote_average; }
 
+    public String getId() { return id; }
 }
