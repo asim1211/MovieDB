@@ -27,7 +27,7 @@ import butterknife.ButterKnife;
 import io.realm.RealmResults;
 
 
-public class MainActivity extends AppCompatActivity implements MoviesInterface.View, AdapterView.OnItemSelectedListener {
+public class MainActivity extends AppCompatActivity implements MoviesInterface.View,HorizontalAdapter.ItemClickListener{
 
     @BindView(R.id.listings_view) RecyclerView moviesRecyclerView;
     @BindView(R.id.horizontalList) RecyclerView genresRecyclerView;
@@ -48,7 +48,8 @@ public class MainActivity extends AppCompatActivity implements MoviesInterface.V
 
     @Override
     public void init() {
-        spinner1.setOnItemSelectedListener(this);
+
+        genresRecyclerView.callOnClick();
 
         LinearLayoutManager mLayoutManager = new LinearLayoutManager(this);
         moviesRecyclerView.setLayoutManager(mLayoutManager);
@@ -56,7 +57,7 @@ public class MainActivity extends AppCompatActivity implements MoviesInterface.V
         LinearLayoutManager genreLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         genresRecyclerView.setLayoutManager(genreLayoutManager);
 
-        //moviesRecyclerView.addOnScrollListener(presenter.getScrollListener(spinner1, mLayoutManager));
+        moviesRecyclerView.addOnScrollListener(presenter.getScrollListener(genresRecyclerView, mLayoutManager));
     }
 
 
@@ -73,27 +74,25 @@ public class MainActivity extends AppCompatActivity implements MoviesInterface.V
     @Override
     public void onGenresReady(List<Genre> genres) {
         HorizontalAdapter dataAdapter = new HorizontalAdapter(this, genres);
-        //dataAdapter.setDropDownViewResource(android.R.layout.simple_dropdown_item_1line);
+        dataAdapter.setClickListener(this);
         genresRecyclerView.setAdapter(dataAdapter);
 
     }
 
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int pos, long l) {
-        ((TextView) parent.getChildAt(0)).setTextColor(getResources().getColor(R.color.gray));
-        presenter.resetVariables();
-
-        //String genreId = presenter.getSelectedGenre(spinner1.getSelectedItemPosition()).getId();
-//        presenter.updateResultCondition(genreId);
-//        presenter.getMovies(genreId, 1);
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> adapterView) {}
 
     @Override
     public void onIntent(Intent intent) {
         startActivity(intent);
+    }
+
+
+    @Override
+    public void onItemClick(View view, int position) {
+        presenter.resetVariables(position);
+        String genreId = presenter.getSelectedGenre(position).getId();
+        presenter.updateResultCondition(genreId);
+        presenter.getMovies(genreId, 1);
+
     }
 }
 

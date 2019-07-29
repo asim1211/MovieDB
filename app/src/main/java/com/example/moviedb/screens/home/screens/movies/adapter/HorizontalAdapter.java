@@ -24,22 +24,12 @@ public class HorizontalAdapter extends RecyclerView.Adapter<HorizontalAdapter.Vi
 
     private LayoutInflater inflater;
     private List<Genre> mGenres;
+    private ItemClickListener mClickListener;
 
     public HorizontalAdapter(Context context, List<Genre> genres) {
-//        super(context, 0, genres);
         this.inflater = LayoutInflater.from(context);
         this.mGenres = genres;
     }
-
-//    @Override
-//    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-//        View listItem = convertView;
-//        if(listItem == null)
-//            listItem = inflater.inflate(R.layout.adapter_genre, parent, false);
-//
-//        ((TextView) listItem.findViewById(R.id.genre_label)).setText(getItem(position).getName());
-//        return listItem;
-//    }
 
 
 
@@ -52,8 +42,8 @@ public class HorizontalAdapter extends RecyclerView.Adapter<HorizontalAdapter.Vi
 
     @Override
     public void onBindViewHolder(@NonNull HorizontalAdapter.ViewHolder holder, int position) {
-
         holder.genreLabel.setText(mGenres.get(position).getName());
+        holder.genreLabel.setTag(position);
 
     }
 
@@ -64,7 +54,7 @@ public class HorizontalAdapter extends RecyclerView.Adapter<HorizontalAdapter.Vi
         return mGenres.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener  {
 
 
         @BindView(R.id.genre_label) TextView genreLabel;
@@ -72,12 +62,24 @@ public class HorizontalAdapter extends RecyclerView.Adapter<HorizontalAdapter.Vi
         public ViewHolder(View view) {
             super(view);
             ButterKnife.bind(this, view);
+            view.setOnClickListener(this);
+        }
 
+        @Override
+        public void onClick(View view) {
+            if (mClickListener != null)
+                mClickListener.onItemClick(view, getAdapterPosition());
         }
     }
 
-//    @Override
-//    public View getDropDownView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-//        return getView(position, convertView, parent);
-//    }
+
+    public void setClickListener(ItemClickListener itemClickListener) {
+        this.mClickListener = itemClickListener;
+    }
+
+
+
+    public interface ItemClickListener {
+        void onItemClick(View view, int position);
+    }
 }

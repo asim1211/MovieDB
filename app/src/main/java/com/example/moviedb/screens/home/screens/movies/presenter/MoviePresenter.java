@@ -34,7 +34,9 @@ public class MoviePresenter implements MoviesInterface.Presenter {
 
     private ArrayList<Genre> genres;
     private int pageCount;
+    private int genrePosition;
     private boolean setAdapter;
+
 
     public MoviePresenter(Activity activity, MoviesInterface.View view) {
         this.activity = activity;
@@ -57,7 +59,7 @@ public class MoviePresenter implements MoviesInterface.Presenter {
     }
 
     @Override
-    public RecyclerView.OnScrollListener getScrollListener(Spinner spinner, LinearLayoutManager linearLayoutManager) {
+    public RecyclerView.OnScrollListener getScrollListener(RecyclerView recyclerView, LinearLayoutManager linearLayoutManager) {
         return new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
@@ -65,16 +67,20 @@ public class MoviePresenter implements MoviesInterface.Presenter {
 
                 if (!recyclerView.canScrollVertically(1) && newState == RecyclerView.SCROLL_STATE_IDLE) {
                     pageCount = (int) Math.ceil(linearLayoutManager.getItemCount() / 20);
+                    System.out.println(pageCount);
                     pageCount++;
-                    getMovies(getSelectedGenre(spinner.getSelectedItemPosition()).getId(), pageCount);
+
+                    getMovies(getSelectedGenre(genrePosition).getId(), pageCount);
+
                 }
             }
         };
     }
 
     @Override
-    public void resetVariables() {
+    public void resetVariables(int position) {
         this.pageCount = 1;
+        this.genrePosition = position;
     }
 
     @Override
@@ -141,6 +147,7 @@ public class MoviePresenter implements MoviesInterface.Presenter {
         if (genreList.size() > 0) {
             String genreId = genreList.get(0).getId();
 
+            this.genrePosition = 0;
             this.genres = new ArrayList(genreList);
             new Handler(Looper.getMainLooper()).post(() -> {
                 view.onGenresReady(genres);
