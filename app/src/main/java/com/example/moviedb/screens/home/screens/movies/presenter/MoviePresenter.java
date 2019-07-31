@@ -3,20 +3,17 @@ package com.example.moviedb.screens.home.screens.movies.presenter;
 import android.app.Activity;
 import android.os.Handler;
 import android.os.Looper;
-import android.view.View;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.moviedb.R;
 import com.example.moviedb.screens.home.model.Genre;
 import com.example.moviedb.screens.home.model.GenreJSONResults;
 import com.example.moviedb.screens.home.model.Movie;
 import com.example.moviedb.screens.home.model.MovieJSONResult;
 import com.example.moviedb.screens.home.networking.RetrofitClientInstance;
+import com.example.moviedb.screens.home.screens.movies.adapter.HorizontalAdapter;
 import com.example.moviedb.screens.home.screens.movies.interfaces.MoviesInterface;
 
 import java.util.ArrayList;
@@ -38,7 +35,7 @@ public class MoviePresenter implements MoviesInterface.Presenter {
     private int pageCount;
     private int genrePosition;
     private boolean setAdapter;
-    private View previousView;
+    private int lastPositionClicked = -1;
 
 
     public MoviePresenter(Activity activity, MoviesInterface.View view) {
@@ -113,20 +110,17 @@ public class MoviePresenter implements MoviesInterface.Presenter {
     }
 
     @Override
-    public void changeBackgroundColor(View view) {
+    public void updateGenreSelection(int position) {
+        HorizontalAdapter genreAdapter = view.getGenreAdapter();
 
-        if(view.isSelected() == false && previousView == null){
-            view.setSelected(true);
-            previousView = view;
-        }else if(view.isSelected() == false && previousView != null) {
-            view.setSelected(true);
-            previousView.setSelected(false);
+        if (genreAdapter != null) {
+            if (lastPositionClicked != -1)
+                genreAdapter.updateItem(lastPositionClicked, false);
 
-            previousView = view;
-        }else{
-            view.setSelected(true);
+            genreAdapter.updateItem(position, true);
+
+            this.lastPositionClicked = position;
         }
-
     }
 
     private void getGenre() {

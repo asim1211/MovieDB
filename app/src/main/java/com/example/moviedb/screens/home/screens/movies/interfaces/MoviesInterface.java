@@ -2,14 +2,13 @@ package com.example.moviedb.screens.home.screens.movies.interfaces;
 
 
 import android.content.Intent;
-import android.view.View;
-import android.widget.Spinner;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.moviedb.screens.home.model.Genre;
 import com.example.moviedb.screens.home.model.Movie;
+import com.example.moviedb.screens.home.screens.movies.adapter.HorizontalAdapter;
 
 import java.util.List;
 
@@ -23,6 +22,7 @@ public interface MoviesInterface {
                 void onScrollUpdateMovies(RealmResults<Movie> moviesList);
                 void onGenresReady(List<Genre> genres);
                 void onIntent(Intent intent);
+                HorizontalAdapter getGenreAdapter();
         }
 
         interface Presenter {
@@ -32,7 +32,7 @@ public interface MoviesInterface {
                 Genre getSelectedGenre(int position);
                 void getMovies(String genreId, int page);
                 void updateResultCondition(String genreId);
-                void changeBackgroundColor(android.view.View view);
+                void updateGenreSelection(int position);
         }
 
 }

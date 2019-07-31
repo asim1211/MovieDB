@@ -29,8 +29,6 @@ public class MovieAdapter extends RealmRecyclerViewAdapter<Movie, MovieAdapter.V
 
     private MoviesInterface.View movieView;
 
-
-
     public MovieAdapter(Context context, RealmResults<Movie> movieObjects, MoviesInterface.View movieView){
         super(movieObjects, true);
         this.context = context;

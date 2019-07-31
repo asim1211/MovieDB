@@ -25,12 +25,13 @@ import butterknife.ButterKnife;
 import io.realm.RealmResults;
 
 
-public class MainActivity extends AppCompatActivity implements MoviesInterface.View,ItemClickListener {
+public class MainActivity extends AppCompatActivity implements MoviesInterface.View, ItemClickListener {
 
     @BindView(R.id.listings_view) RecyclerView moviesRecyclerView;
     @BindView(R.id.horizontalList) RecyclerView genresRecyclerView;
 
     private MoviesInterface.Presenter presenter;
+    private HorizontalAdapter dataAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,7 +72,7 @@ public class MainActivity extends AppCompatActivity implements MoviesInterface.V
 
     @Override
     public void onGenresReady(List<Genre> genres) {
-        HorizontalAdapter dataAdapter = new HorizontalAdapter(this, genres);
+        this.dataAdapter = new HorizontalAdapter(this, genres);
         dataAdapter.setClickListener(this);
         genresRecyclerView.setAdapter(dataAdapter);
 
@@ -83,18 +84,18 @@ public class MainActivity extends AppCompatActivity implements MoviesInterface.V
         startActivity(intent);
     }
 
+    @Override
+    public HorizontalAdapter getGenreAdapter() {
+        return dataAdapter;
+    }
 
     @Override
     public void onItemClick(View view, int position) {
         presenter.resetVariables(position);
         String genreId = presenter.getSelectedGenre(position).getId();
-        presenter.getSelectedGenre(position).selected = true;
-
         presenter.updateResultCondition(genreId);
         presenter.getMovies(genreId, 1);
-
-        presenter.changeBackgroundColor(view);
-
+        presenter.updateGenreSelection(position);
     }
 }
 

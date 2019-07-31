@@ -1,7 +1,6 @@
 package com.example.moviedb.screens.home.screens.movies.adapter;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +9,7 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
-import androidx.core.content.ContextCompat;
+
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.moviedb.screens.home.model.Genre;
@@ -28,7 +27,6 @@ public class HorizontalAdapter extends RecyclerView.Adapter<HorizontalAdapter.Vi
     private LayoutInflater inflater;
     private List<Genre> mGenres;
     private ItemClickListener mClickListener;
-    private TextView previousView;
 
     public HorizontalAdapter(Context context, List<Genre> genres) {
         this.inflater = LayoutInflater.from(context);
@@ -77,9 +75,15 @@ public class HorizontalAdapter extends RecyclerView.Adapter<HorizontalAdapter.Vi
         }
     }
 
-
     public void setClickListener(ItemClickListener itemClickListener) {
         this.mClickListener = itemClickListener;
+    }
+
+    public void updateItem(int position, boolean selected) {
+        Genre genre = mGenres.get(position);
+        genre.selected = selected;
+        mGenres.set(position, genre);
+        notifyItemChanged(position);
     }
 
 }
