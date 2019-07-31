@@ -92,7 +92,8 @@ public class MainActivity extends AppCompatActivity implements MoviesInterface.V
 
         presenter.updateResultCondition(genreId);
         presenter.getMovies(genreId, 1);
-        //view.setSelected(true);
+
+        presenter.changeBackgroundColor(view);
 
     }
 }

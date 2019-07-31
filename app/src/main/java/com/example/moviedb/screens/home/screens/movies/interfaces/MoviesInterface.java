@@ -2,6 +2,7 @@ package com.example.moviedb.screens.home.screens.movies.interfaces;
 
 
 import android.content.Intent;
+import android.view.View;
 import android.widget.Spinner;
 
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -31,7 +32,7 @@ public interface MoviesInterface {
                 Genre getSelectedGenre(int position);
                 void getMovies(String genreId, int page);
                 void updateResultCondition(String genreId);
-                void changeBackgroundColor(View view);
+                void changeBackgroundColor(android.view.View view);
         }
 
 }

@@ -3,11 +3,15 @@ package com.example.moviedb.screens.home.screens.movies.presenter;
 import android.app.Activity;
 import android.os.Handler;
 import android.os.Looper;
+import android.view.View;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.moviedb.R;
 import com.example.moviedb.screens.home.model.Genre;
 import com.example.moviedb.screens.home.model.GenreJSONResults;
 import com.example.moviedb.screens.home.model.Movie;
@@ -34,6 +38,7 @@ public class MoviePresenter implements MoviesInterface.Presenter {
     private int pageCount;
     private int genrePosition;
     private boolean setAdapter;
+    private View previousView;
 
 
     public MoviePresenter(Activity activity, MoviesInterface.View view) {
@@ -108,7 +113,19 @@ public class MoviePresenter implements MoviesInterface.Presenter {
     }
 
     @Override
-    public void changeBackgroundColor(MoviesInterface.View view) {
+    public void changeBackgroundColor(View view) {
+
+        if(view.isSelected() == false && previousView == null){
+            view.setSelected(true);
+            previousView = view;
+        }else if(view.isSelected() == false && previousView != null) {
+            view.setSelected(true);
+            previousView.setSelected(false);
+
+            previousView = view;
+        }else{
+            view.setSelected(true);
+        }
 
     }
 

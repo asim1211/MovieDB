@@ -74,33 +74,7 @@ public class HorizontalAdapter extends RecyclerView.Adapter<HorizontalAdapter.Vi
             if (mClickListener != null)
                 mClickListener.onItemClick(view, getAdapterPosition());
 
-
-//            System.out.println("--------------1--------------");
-//            System.out.println(mGenres.get().selected);
-
-//            colorChange(genreLabel);
         }
-    }
-
-    private void colorChange(TextView genreLabel){
-        if(genreLabel.isSelected() == false && previousView == null){
-            genreLabel.setSelected(true);
-            genreLabel.setBackgroundColor(ContextCompat.getColor(genreLabel.getContext(), R.color.dark_gray));
-            previousView = genreLabel;
-        }else if(genreLabel.isSelected() == false && previousView != null) {
-            genreLabel.setSelected(true);
-            previousView.setSelected(false);
-
-            genreLabel.setBackgroundColor(ContextCompat.getColor(genreLabel.getContext(), R.color.dark_gray));
-            previousView.setBackgroundColor(ContextCompat.getColor(genreLabel.getContext(), R.color.gray));
-
-            previousView = genreLabel;
-
-        }else{
-            genreLabel.setSelected(true);
-            genreLabel.setBackgroundColor(ContextCompat.getColor(genreLabel.getContext(), R.color.dark_gray));
-        }
-
     }
 
 
