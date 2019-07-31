@@ -1,26 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<LinearLayout
+<TextView
     xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/genre_label"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:padding="10dp">
 
-    <com.example.moviedb.screens.home.customView.CustomCardView
-        android:layout_width="wrap_content"
-        android:layout_height="25dp"
-        android:background="?android:attr/activatedBackgroundIndicator">
+    android:padding="10dp"
+    android:background="@drawable/selector"
 
-        <TextView
-            android:id="@+id/genre_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="20sp"
-
-            android:background="@color/gray"
-            android:textColor="@color/white" />
-
-    </com.example.moviedb.screens.home.customView.CustomCardView>
-
-</LinearLayout>
+    android:textSize="20sp"
+    android:textStyle="italic"
+    android:textColor="@color/white" />

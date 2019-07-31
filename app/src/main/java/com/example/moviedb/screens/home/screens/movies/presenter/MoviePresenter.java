@@ -107,6 +107,11 @@ public class MoviePresenter implements MoviesInterface.Presenter {
             view.onScrollUpdateMovies(getMoviesResult(genreId));
     }
 
+    @Override
+    public void changeBackgroundColor(MoviesInterface.View view) {
+
+    }
+
     private void getGenre() {
         RealmResults<Genre> genres = Realm.getDefaultInstance().where(Genre.class).findAllAsync();
         genres.addChangeListener((genres1, changeSet) -> retrieveGenres(genres1));

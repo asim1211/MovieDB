@@ -18,9 +18,10 @@ public class Genre extends RealmObject {
     @Expose
     private String name;
 
+    public transient boolean selected;
 
-    public Genre(){
-    }
+
+    public Genre(){}
 
 
     public String getId() {

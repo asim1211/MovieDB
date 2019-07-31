@@ -31,6 +31,7 @@ public interface MoviesInterface {
                 Genre getSelectedGenre(int position);
                 void getMovies(String genreId, int page);
                 void updateResultCondition(String genreId);
+                void changeBackgroundColor(View view);
         }
 
 }

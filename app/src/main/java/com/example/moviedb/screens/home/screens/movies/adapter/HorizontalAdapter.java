@@ -45,12 +45,18 @@ public class HorizontalAdapter extends RecyclerView.Adapter<HorizontalAdapter.Vi
 
     @Override
     public void onBindViewHolder(@NonNull HorizontalAdapter.ViewHolder holder, int position) {
-        holder.genreLabel.setText(mGenres.get(position).getName());
+        Genre genre = getItem(position);
+        holder.genreLabel.setText(genre.getName());
+        holder.genreLabel.setSelected(genre.selected);
     }
 
     @Override
     public int getItemCount() {
         return mGenres.size();
+    }
+
+    public Genre getItem(int position) {
+        return mGenres.get(position);
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener  {
@@ -68,7 +74,11 @@ public class HorizontalAdapter extends RecyclerView.Adapter<HorizontalAdapter.Vi
             if (mClickListener != null)
                 mClickListener.onItemClick(view, getAdapterPosition());
 
-            colorChange(genreLabel);
+
+//            System.out.println("--------------1--------------");
+//            System.out.println(mGenres.get().selected);
+
+//            colorChange(genreLabel);
         }
     }
 

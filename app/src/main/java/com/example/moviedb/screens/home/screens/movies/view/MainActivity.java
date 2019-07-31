@@ -88,8 +88,11 @@ public class MainActivity extends AppCompatActivity implements MoviesInterface.V
     public void onItemClick(View view, int position) {
         presenter.resetVariables(position);
         String genreId = presenter.getSelectedGenre(position).getId();
+        presenter.getSelectedGenre(position).selected = true;
+
         presenter.updateResultCondition(genreId);
         presenter.getMovies(genreId, 1);
+        //view.setSelected(true);
 
     }
 }
