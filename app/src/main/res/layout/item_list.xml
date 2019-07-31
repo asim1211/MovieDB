@@ -5,5 +5,5 @@
     android:id="@+id/item"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.moviedb.screens.home.screens.movieObjects.view.MainActivity" />
+    tools:context="com.example.moviedb.screens.home.screens.movies.view.MainActivity" />
 

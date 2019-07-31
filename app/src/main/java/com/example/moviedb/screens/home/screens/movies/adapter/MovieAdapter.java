@@ -17,7 +17,7 @@ import com.example.moviedb.screens.home.helper.Intents;
 import com.example.moviedb.screens.home.model.Movie;
 import com.example.moviedb.screens.home.utils.Constants;
 import com.example.moviedb.R;
-import com.example.moviedb.screens.home.screens.movies.MoviesInterface;
+import com.example.moviedb.screens.home.screens.movies.interfaces.MoviesInterface;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

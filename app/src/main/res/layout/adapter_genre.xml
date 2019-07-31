@@ -7,11 +7,20 @@
     android:orientation="horizontal"
     android:padding="10dp">
 
-<TextView
-    android:id="@+id/genre_label"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:textSize="20sp"
-    android:textColor="@color/white" />
+    <com.example.moviedb.screens.home.customView.CustomCardView
+        android:layout_width="wrap_content"
+        android:layout_height="25dp"
+        android:background="?android:attr/activatedBackgroundIndicator">
+
+        <TextView
+            android:id="@+id/genre_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="20sp"
+
+            android:background="@color/gray"
+            android:textColor="@color/white" />
+
+    </com.example.moviedb.screens.home.customView.CustomCardView>
 
 </LinearLayout>

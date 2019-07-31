@@ -10,24 +10,22 @@ import android.content.Intent;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.Spinner;
-import android.widget.TextView;
 
 import com.example.moviedb.screens.home.model.Genre;
 import com.example.moviedb.screens.home.model.Movie;
 import com.example.moviedb.screens.home.screens.movies.adapter.HorizontalAdapter;
 import com.example.moviedb.screens.home.screens.movies.adapter.MovieAdapter;
+import com.example.moviedb.screens.home.screens.movies.interfaces.ItemClickListener;
 import com.example.moviedb.screens.home.screens.movies.presenter.MoviePresenter;
 import com.example.moviedb.R;
-import com.example.moviedb.screens.home.screens.movies.MoviesInterface;
+import com.example.moviedb.screens.home.screens.movies.interfaces.MoviesInterface;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import io.realm.RealmResults;
 
 
-public class MainActivity extends AppCompatActivity implements MoviesInterface.View,HorizontalAdapter.ItemClickListener{
+public class MainActivity extends AppCompatActivity implements MoviesInterface.View,ItemClickListener {
 
     @BindView(R.id.listings_view) RecyclerView moviesRecyclerView;
     @BindView(R.id.horizontalList) RecyclerView genresRecyclerView;

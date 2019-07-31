@@ -3,7 +3,6 @@ package com.example.moviedb.screens.home.screens.movies.presenter;
 import android.app.Activity;
 import android.os.Handler;
 import android.os.Looper;
-import android.widget.Spinner;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -14,13 +13,12 @@ import com.example.moviedb.screens.home.model.GenreJSONResults;
 import com.example.moviedb.screens.home.model.Movie;
 import com.example.moviedb.screens.home.model.MovieJSONResult;
 import com.example.moviedb.screens.home.networking.RetrofitClientInstance;
-import com.example.moviedb.screens.home.screens.movies.MoviesInterface;
+import com.example.moviedb.screens.home.screens.movies.interfaces.MoviesInterface;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import io.realm.Realm;
-import io.realm.RealmList;
 import io.realm.RealmResults;
 import retrofit2.Call;
 import retrofit2.Callback;
