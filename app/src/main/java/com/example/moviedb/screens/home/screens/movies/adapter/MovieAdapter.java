@@ -76,6 +76,7 @@ public class MovieAdapter extends RealmRecyclerViewAdapter<Movie, MovieAdapter.V
 
             onItemClicked(thisMovieObject);
             System.out.println("PR1");
+            System.out.println("PR2");
         }
 
 
