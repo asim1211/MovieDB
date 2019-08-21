@@ -75,8 +75,8 @@ public class MovieAdapter extends RealmRecyclerViewAdapter<Movie, MovieAdapter.V
                 Glide.with(context).load(R.mipmap.ic_launcher_round).into(movieImage);
 
             onItemClicked(thisMovieObject);
-            System.out.println("PR1");
-            System.out.println("PR2");
+            System.out.println("PuR1");
+            System.out.println("PuR2");
         }
 
 
