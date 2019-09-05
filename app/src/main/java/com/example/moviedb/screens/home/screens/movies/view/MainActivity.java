@@ -1,24 +1,34 @@
 package com.example.moviedb.screens.home.screens.movies.view;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import android.content.Intent;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 
 import com.example.moviedb.screens.home.model.Genre;
 import com.example.moviedb.screens.home.model.Movie;
+import com.example.moviedb.screens.home.networking.FirebaseInstance;
 import com.example.moviedb.screens.home.screens.movies.adapter.HorizontalAdapter;
 import com.example.moviedb.screens.home.screens.movies.adapter.MovieAdapter;
 import com.example.moviedb.screens.home.screens.movies.interfaces.ItemClickListener;
 import com.example.moviedb.screens.home.screens.movies.presenter.MoviePresenter;
 import com.example.moviedb.R;
 import com.example.moviedb.screens.home.screens.movies.interfaces.MoviesInterface;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
+import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -33,11 +43,24 @@ public class MainActivity extends AppCompatActivity implements MoviesInterface.V
     private MoviesInterface.Presenter presenter;
     private HorizontalAdapter dataAdapter;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
+//        FirebaseInstance.getInstance().getFirebaseRemoteConfigData();
+        FirebaseInstance.getInstance().fetchVariant(moviesRecyclerView, genresRecyclerView);
+
+        FirebaseInstanceId.getInstance().getInstanceId()
+                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                        Log.d("IID_TOKEN", task.getResult().getToken());
+                    }
+                });
+
 
         presenter = new MoviePresenter(this, this);
         presenter.init();
