@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements MoviesInterface.V
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-//        FirebaseInstance.getInstance().getFirebaseRemoteConfigData();
+        FirebaseInstance.getInstance().getFirebaseRemoteConfigData();
         FirebaseInstance.getInstance().fetchVariant(moviesRecyclerView, genresRecyclerView);
 
         FirebaseInstanceId.getInstance().getInstanceId()

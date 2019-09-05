@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.moviedb.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 
@@ -50,21 +49,12 @@ public class FirebaseInstance {
     }
 
     private void runExperiment(RecyclerView moviesRecyclerView, RecyclerView genresRecyclerView){
-
         String firstParam = firebaseInstance.getString("firstParam");
         String secondParam = firebaseInstance.getString("secondParam");
 
-        System.out.println("--------------1--------------");
-        System.out.println(firstParam);
-        System.out.println("--------------2--------------");
-        System.out.println(secondParam);
-
         moviesRecyclerView.setBackgroundColor(Color.parseColor(firstParam));
         genresRecyclerView.setBackgroundColor(Color.parseColor(secondParam));
-
         }
-
-
 
     public static FirebaseInstance getInstance() {
         if (instance == null)
