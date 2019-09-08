@@ -12,9 +12,13 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfig;
 import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings;
 
+import java.util.concurrent.Callable;
+
+import static com.google.android.gms.tasks.Tasks.call;
+
 public class FirebaseInstance {
 
-    private FirebaseRemoteConfig firebaseInstance;
+    public FirebaseRemoteConfig firebaseInstance;
     private static FirebaseInstance instance;
 
 
@@ -31,7 +35,7 @@ public class FirebaseInstance {
         firebaseInstance.setDefaults(R.xml.no_experiment);
     }
 
-    public void fetchVariant(RecyclerView moviesRecyclerView, RecyclerView genresRecyclerView){
+    public void fetchVariant(Callable<String> runExperiment){
 
         firebaseInstance.fetch(0).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
@@ -42,24 +46,26 @@ public class FirebaseInstance {
                 } else {
                     Log.d("456", "Fetch Failed");
                 }
-                runExperiment(moviesRecyclerView, genresRecyclerView);
+                call(runExperiment);
             }
         });
     }
 
-    private void runExperiment(RecyclerView moviesRecyclerView, RecyclerView genresRecyclerView){
-        String firstParam = firebaseInstance.getString("firstParam");
-        String secondParam = firebaseInstance.getString("secondParam");
+//    private void runExperiment(RecyclerView moviesRecyclerView, RecyclerView genresRecyclerView){
+//        String firstParam = firebaseInstance.getString("firstParam");
+//        String secondParam = firebaseInstance.getString("secondParam");
+//
+//        moviesRecyclerView.setBackgroundColor(Color.parseColor(firstParam));
+//        genresRecyclerView.setBackgroundColor(Color.parseColor(secondParam));
+//        }
 
-        moviesRecyclerView.setBackgroundColor(Color.parseColor(firstParam));
-        genresRecyclerView.setBackgroundColor(Color.parseColor(secondParam));
-        }
 
     public static FirebaseInstance getInstance() {
         if (instance == null)
             instance = new FirebaseInstance();
         return instance;
     }
+
 
 
 

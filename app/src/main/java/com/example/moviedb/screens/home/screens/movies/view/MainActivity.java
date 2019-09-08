@@ -6,9 +6,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
+import java.util.concurrent.Callable;
 
 import android.content.Intent;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -48,16 +50,20 @@ public class MainActivity extends AppCompatActivity implements MoviesInterface.V
         ButterKnife.bind(this);
 
         FirebaseInstance.getInstance().getFirebaseRemoteConfigData();
-        FirebaseInstance.getInstance().fetchVariant(moviesRecyclerView, genresRecyclerView);
+        //FirebaseInstance.getInstance().fetchVariant(moviesRecyclerView, genresRecyclerView);
 
-        FirebaseInstanceId.getInstance().getInstanceId()
-                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
-                        Log.d("IID_TOKEN", task.getResult().getToken());
-                    }
-                });
+        FirebaseInstance.getInstance().fetchVariant( new Callable<String>(){
+            public String call() {
 
+                String firstParam = FirebaseInstance.getInstance().firebaseInstance.getString("firstParam");
+                String secondParam = FirebaseInstance.getInstance().firebaseInstance.getString("secondParam");
+
+                moviesRecyclerView.setBackgroundColor(Color.parseColor(firstParam));
+                genresRecyclerView.setBackgroundColor(Color.parseColor(secondParam));
+
+                return "";
+            }
+        });
 
         presenter = new MoviePresenter(this, this);
         presenter.init();
