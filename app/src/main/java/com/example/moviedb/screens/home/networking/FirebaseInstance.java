@@ -1,6 +1,5 @@
 package com.example.moviedb.screens.home.networking;
 
-import android.content.Context;
 import android.graphics.Color;
 import android.util.Log;
 
