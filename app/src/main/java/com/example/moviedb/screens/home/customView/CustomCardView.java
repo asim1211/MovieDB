@@ -12,6 +12,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.moviedb.R;
 
+import static com.example.moviedb.R2.style.CardView;
+
 
 public class CustomCardView extends CardView {
 

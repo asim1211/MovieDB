@@ -1,6 +1,5 @@
 package com.example.moviedb.screens.home.screens.movies.view;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,22 +11,16 @@ import android.content.Intent;
 
 import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
 import com.example.moviedb.screens.home.model.Genre;
 import com.example.moviedb.screens.home.model.Movie;
-import com.example.moviedb.screens.home.networking.FirebaseInstance;
 import com.example.moviedb.screens.home.screens.movies.adapter.HorizontalAdapter;
 import com.example.moviedb.screens.home.screens.movies.adapter.MovieAdapter;
 import com.example.moviedb.screens.home.screens.movies.interfaces.ItemClickListener;
 import com.example.moviedb.screens.home.screens.movies.presenter.MoviePresenter;
 import com.example.moviedb.R;
 import com.example.moviedb.screens.home.screens.movies.interfaces.MoviesInterface;
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
-import com.google.firebase.iid.FirebaseInstanceId;
-import com.google.firebase.iid.InstanceIdResult;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -49,21 +42,6 @@ public class MainActivity extends AppCompatActivity implements MoviesInterface.V
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
 
-        FirebaseInstance.getInstance().getFirebaseRemoteConfigData();
-        //FirebaseInstance.getInstance().fetchVariant(moviesRecyclerView, genresRecyclerView);
-
-        FirebaseInstance.getInstance().fetchVariant( new Callable<String>(){
-            public String call() {
-
-                String firstParam = FirebaseInstance.getInstance().firebaseInstance.getString("firstParam");
-                String secondParam = FirebaseInstance.getInstance().firebaseInstance.getString("secondParam");
-
-                moviesRecyclerView.setBackgroundColor(Color.parseColor(firstParam));
-                genresRecyclerView.setBackgroundColor(Color.parseColor(secondParam));
-
-                return "";
-            }
-        });
 
         presenter = new MoviePresenter(this, this);
         presenter.init();
